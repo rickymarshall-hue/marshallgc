@@ -25,9 +25,9 @@ const distributionMarkets = [
 ];
 
 const testimonials = [
-  { text: "Richard has been instrumental in helping us navigate the legal complexities of scaling a global brand. His understanding of fashion, licensing, and international operations is exceptional — and he operates as a true extension of our team.", name: "CEO", role: "Global Fashion & Lifestyle Brand", featured: true },
+  { text: "Richard has been instrumental in helping us navigate the legal complexities of scaling a global brand. His understanding of fashion, licensing, and international operations is exceptional, and he operates as a true extension of our team.", name: "CEO", role: "Global Fashion & Lifestyle Brand", featured: true },
   { text: "We needed someone who could move at our pace and think commercially, not just legally. Richard immediately understood our business and helped us structure partnerships we would not have got right on our own.", name: "Founder", role: "DTC Beauty Brand" },
-  { text: "Having Richard as fractional GC gave us the confidence to expand into three new markets in twelve months. He handled the complexity so we could focus on growth.", name: "CEO", role: "E-Commerce Lifestyle Brand" },
+  { text: "Having Richard as a fractional general counsel gave us the confidence to expand into three new markets in twelve months. He handled the complexity so we could focus on growth.", name: "CEO", role: "E-Commerce Lifestyle Brand" },
 ];
 
 const caseStudies = [
@@ -37,10 +37,10 @@ const caseStudies = [
 ];
 
 const insights = [
-  { date: "March 2026", tag: "International", title: "Five legal mistakes brands make when expanding internationally", excerpt: "International growth is exciting — but it introduces legal complexity that catches many brands off guard.",
+  { date: "March 2026", tag: "International", title: "Five legal mistakes brands make when expanding internationally", excerpt: "International growth is exciting, but it introduces legal complexity that catches many brands off guard.",
     content: [
-      { h: "1. Assuming your home-country contracts will work everywhere", p: "Contracts drafted under English or US law don't automatically hold up in other jurisdictions. Distribution agreements, employment contracts, and supplier terms often need to be adapted to comply with local laws." },
-      { h: "2. Ignoring local IP registration", p: "Your UK or US trademark does not protect you internationally. Each market requires its own filing — and in many jurisdictions, the first to file wins, regardless of who used the mark first." },
+      { h: "1. Assuming your home-country contracts will work everywhere", p: "Contracts drafted under English or US law do not automatically hold up in other jurisdictions. Distribution agreements, employment contracts, and supplier terms often need to be adapted to comply with local laws." },
+      { h: "2. Ignoring local IP registration", p: "Your UK or US trademark does not protect you internationally. Each market requires its own filing, and in many jurisdictions, the first to file wins regardless of who used the mark first." },
       { h: "3. Underestimating regulatory requirements", p: "From product labelling to data protection, every market has its own regulatory framework. Beauty brands face cosmetic regulations that vary dramatically across the EU, US, and Asia." },
       { h: "4. Choosing the wrong entity structure", p: "Setting up a subsidiary, branch office, or working through a distributor each carry different tax, liability, and operational implications. Getting this wrong early creates expensive restructuring later." },
       { h: "5. Not having a local dispute resolution strategy", p: "When things go wrong you need to know which courts or arbitration bodies have jurisdiction and whether your agreements actually protect you in that specific market." },
@@ -52,27 +52,25 @@ const insights = [
       { h: "The appeal of licensing", p: "Licensing lets you extend your brand into new product categories without the capital investment of manufacturing and distribution. But it is not without risk." },
       { h: "Too early: the brand dilution trap", p: "If you license before your brand identity is firmly established, you lose control of how your brand shows up in the market." },
       { h: "Too late: missed opportunity cost", p: "Wait too long, and competitors or imitators fill the space your brand should occupy." },
-      { h: "The signals that you're ready", p: "Strong brand recognition, profitable core categories, internal capacity for quality control, and a properly protected IP portfolio." },
+      { h: "The signals that you are ready", p: "Strong brand recognition, profitable core categories, internal capacity for quality control, and a properly protected IP portfolio." },
       { h: "Getting the structure right", p: "Clear quality standards, approval rights, defined territories and exclusivity terms, and commercially realistic royalty structures." },
     ]
   },
-  { date: "January 2026", tag: "Founders", title: "Why scaling brands need fractional counsel, not law firms", excerpt: "The traditional law firm model wasn't built for fast-moving consumer brands.",
+  { date: "January 2026", tag: "Founders", title: "Why scaling brands need fractional counsel, not law firms", excerpt: "The traditional law firm model was not built for fast-moving consumer brands.",
     content: [
       { h: "The law firm problem", p: "Hourly billing fundamentally misaligns incentives. Clients hesitate to pick up the phone and defer legal work that should be done proactively." },
-      { h: "The in-house gap", p: "For brands in the $3M to $50M range, a full-time GC is often premature. The salary and overhead can easily exceed $250,000 per year." },
+      { h: "The in-house gap", p: "For brands in the $3M to $50M range, a full-time general counsel is often premature. The salary and overhead can easily exceed $250,000 per year." },
       { h: "The fractional model", p: "A senior lawyer who knows your business, works on a predictable retainer, and operates as a genuine member of your team." },
       { h: "What changes", p: "Legal becomes a strategic function. You catch problems earlier. Your contracts get tighter, your IP gets protected, and your negotiations improve." },
-      { h: "Is it right for every brand?", p: "For the 80% of legal work that scaling brands deal with — contracts, IP, partnerships, compliance — fractional counsel is almost always the better model." },
-      { h: "Is it right for every brand?", p: "For the 80% of legal work that scaling brands deal with — contracts, IP, partnerships, compliance — fractional counsel is almost always the better model." },
+      { h: "Is it right for every brand?", p: "For the 80% of legal work that scaling brands deal with, including contracts, IP, partnerships, and compliance, fractional counsel is almost always the better model." },
     ]
   },
   { date: "December 2025", tag: "IP", title: "Brand protection basics for e-commerce companies", excerpt: "Your brand is your most valuable asset. A practical guide to trademark strategy and portfolio management.",
     content: [
       { h: "Why brand protection matters", p: "Your brand is the trust that drives repeat purchases, the recognition that reduces acquisition costs, and the equity that underpins your valuation." },
       { h: "Start with trademark registration", p: "Register your brand name and primary logo in every market where you sell. In many jurisdictions, the first to file wins." },
-      { h: "Monitor and enforce", p: "Active monitoring to catch infringements early — counterfeit products, domain squatting, or competitors using confusingly similar branding." },
+      { h: "Monitor and enforce", p: "Active monitoring to catch infringements early, whether that is counterfeit products on marketplaces, domain squatting, or competitors using confusingly similar branding." },
       { h: "Build a portfolio strategy", p: "Consider trademark classes beyond current products, protect sub-brands, and file in markets you plan to enter." },
-      { h: "Common mistakes", p: "Do not assume company name registration protects your brand. Do not wait to file trademarks. Do not ignore enforcement obligations." },
       { h: "Common mistakes", p: "Do not assume company name registration protects your brand. Do not wait to file trademarks. Do not ignore enforcement obligations." },
     ]
   },
@@ -93,10 +91,11 @@ const projectExamples = [
 
 const pricingFaqs = [
   { q: "What happens if I need more hours?", a: "Additional hours are available at a pre-agreed rate, or we can discuss moving to a higher tier." },
-  { q: "Can I switch between plans?", a: "Yes. You can move between tiers at the start of any month with 30 days' notice." },
-  { q: "Is there a minimum commitment?", a: "Three-month initial commitment on retainer plans. After that, month-to-month." },
-  { q: "Can I combine a retainer with a project?", a: "Yes — many clients do. Monthly retainer for ongoing work plus a scoped project." },
+  { q: "Can I switch between plans?", a: "Yes. You can move between tiers at the start of any month with 30 days notice." },
+  { q: "Is there a minimum commitment?", a: "Three-month initial commitment on retainer plans. After that, it rolls month-to-month with 30 days notice to cancel." },
+  { q: "Can I combine a retainer with a project?", a: "Yes, and many clients do. Monthly retainer for ongoing work plus a scoped project." },
   { q: "How does a strategic project work?", a: "Scoping conversation, fixed fee proposal, clear deliverables, and a timeline. No surprises." },
+  { q: "How is payment structured?", a: "Retainers are invoiced monthly in advance. Project fees are typically split into an upfront payment and a completion payment, agreed before work begins." },
 ];
 
 const values = [
@@ -121,7 +120,7 @@ const privacyContent = [
 
 const regulatoryContent = [
   { h: "About " + BRAND, p: BRAND + " is an independent legal and strategic advisory practice. It is not a law firm and is not regulated by the Solicitors Regulation Authority (SRA), the Bar Standards Board, or any other legal regulatory body. " + BRAND + " operates as a consultancy providing legal and commercial advisory services outside the scope of any statutory legal regulatory framework." },
-  { h: "About Richard Marshall", p: "Richard Marshall is the founder of " + BRAND + ". He qualified as a solicitor of England and Wales and has extensive experience advising consumer and e-commerce brands on international legal and commercial matters. Richard provides advisory services through " + BRAND + " in an independent consultancy capacity — he does not practise under the supervision or regulation of the SRA or any other governing legal body." },
+  { h: "About Richard Marshall", p: "Richard Marshall is the founder of " + BRAND + ". He qualified as a solicitor of England and Wales and has extensive experience advising consumer and e-commerce brands on international legal and commercial matters. Richard provides advisory services through " + BRAND + " in an independent consultancy capacity. He does not practise under the supervision or regulation of the SRA or any other governing legal body." },
   { h: "Scope of services", p: BRAND + " provides legal and strategic advisory services to scaling consumer brands, with particular expertise in commercial contracts, intellectual property strategy, licensing, distribution, international expansion, and corporate structuring. Services are delivered on a consultancy basis through monthly retainer agreements or defined-scope project engagements." },
   { h: "What this means for clients", p: "Because " + BRAND + " operates outside the regulatory framework of the SRA or any other legal regulatory body, clients should be aware that: " + BRAND + " is not subject to the SRA Standards and Regulations or Code of Conduct, clients will not have access to the SRA regulatory protections or complaints process, the Legal Ombudsman is not available, and the SRA Compensation Fund does not apply. Richard applies the professional standards and duty of care consistent with his training and qualification." },
   { h: "Professional indemnity insurance", p: BRAND + " maintains professional indemnity insurance (PII). This is not SRA minimum terms cover. Details of coverage are available on request." },
@@ -306,14 +305,14 @@ export default function MarshallGC() {
 
   if (page === "Regulatory") return (<div style={st.wrap}><Nav /><FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px" }}><p style={st.label}>Legal</p><h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>Regulatory Information</h1><p style={{ fontSize: 13, color: "#999", marginTop: 12 }}>Last updated: March 2026</p><p style={{ ...st.body, maxWidth: 620 }}>Important information about the regulatory status of {BRAND}.</p>{regulatoryContent.map((s, i) => <div key={i} style={{ marginTop: 36 }}><h3 style={{ fontSize: 17, fontWeight: 600, margin: 0 }}>{s.h}</h3><p style={{ ...st.bodySm, marginTop: 10 }}>{s.p}</p></div>)}</FadeIn><Footer /><CookieBanner /></div>);
 
-  if (page === "Article" && articleIdx !== null) { const a = insights[articleIdx]; return (<div style={st.wrap}><Nav /><FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px" }}><div style={{ marginBottom: 20 }}><span onClick={() => go("Insights")} style={{ fontSize: 13, color: "#888", cursor: "pointer" }}>← Back to Insights</span></div><div style={{ display: "flex", gap: 12, marginBottom: 16 }}><span style={{ fontSize: 12, color: "#999" }}>{a.date}</span><span style={{ fontSize: 12, color: "#1a1a1a", background: "#F5F4F0", padding: "2px 10px", borderRadius: 12, fontWeight: 500 }}>{a.tag}</span></div><h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>{a.title}</h1><p style={{ ...st.body, fontSize: 17, color: "#666" }}>{a.excerpt}</p><div style={{ height: 1, background: "#E8E6E1", margin: "36px 0" }} />{a.content.map((s, i) => <div key={i} style={{ marginBottom: 32 }}><h3 style={{ fontSize: 18, fontWeight: 600, margin: 0 }}>{s.h}</h3><p style={{ ...st.bodySm, marginTop: 10 }}>{s.p}</p></div>)}</FadeIn><Newsletter /><CTA title="Need help with this?" subtitle="If this resonates with where your brand is right now, let us talk." dark calendly /><Footer /><CookieBanner /></div>); }
+  if (page === "Article" && articleIdx !== null) { const a = insights[articleIdx]; return (<div style={st.wrap}><Nav /><FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px" }}><div style={{ marginBottom: 20 }}><span onClick={() => go("Insights")} style={{ fontSize: 13, color: "#888", cursor: "pointer" }}>Back to Insights</span></div><div style={{ display: "flex", gap: 12, marginBottom: 16 }}><span style={{ fontSize: 12, color: "#999" }}>{a.date}</span><span style={{ fontSize: 12, color: "#1a1a1a", background: "#F5F4F0", padding: "2px 10px", borderRadius: 12, fontWeight: 500 }}>{a.tag}</span></div><h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>{a.title}</h1><p style={{ ...st.body, fontSize: 17, color: "#666" }}>{a.excerpt}</p><div style={{ height: 1, background: "#E8E6E1", margin: "36px 0" }} />{a.content.map((s, i) => <div key={i} style={{ marginBottom: 32 }}><h3 style={{ fontSize: 18, fontWeight: 600, margin: 0 }}>{s.h}</h3><p style={{ ...st.bodySm, marginTop: 10 }}>{s.p}</p></div>)}</FadeIn><Newsletter /><CTA title="Need help with this?" subtitle="If this resonates with where your brand is right now, we should talk." dark calendly /><Footer /><CookieBanner /></div>); }
 
   if (page === "Home") return (
     <div style={st.wrap}>
       <Nav />
       <FadeIn style={{ maxWidth: 820, margin: "0 auto", padding: isMobile ? "64px 24px 32px" : "100px 48px 40px" }}>
         <p style={st.label}>Legal & Strategic Advisory</p>
-        <h1 style={st.h1}>The legal partner scaling<br />consumer brands actually need.</h1>
+        <h1 style={st.h1}>The legal partner scaling<br />consumer brands actually need</h1>
         <p style={{ ...st.body, maxWidth: 600 }}>{BRAND} provides fractional general counsel and strategic advisory to e-commerce and consumer brands navigating the complexity of international growth.</p>
         <div style={{ marginTop: 36, display: "flex", gap: 16, flexWrap: "wrap" }}>
           <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={st.btn}>Schedule a Conversation</a>
@@ -322,7 +321,7 @@ export default function MarshallGC() {
       </FadeIn>
       <FadeIn style={{ maxWidth: 1060, margin: "0 auto", padding: isMobile ? "48px 24px 64px" : "60px 48px 80px" }}>
         <div style={{ ...st.card, display: "flex", gap: 48, flexWrap: "wrap", alignItems: "center" }}>
-          <div style={{ flex: "1 1 300px" }}><p style={st.label}>Why {BRAND}</p><h2 style={{ ...st.h2, fontSize: 22 }}>Built for the way modern brands actually operate.</h2></div>
+          <div style={{ flex: "1 1 300px" }}><p style={st.label}>Why {BRAND}</p><h2 style={{ ...st.h2, fontSize: 22 }}>Built for the way modern brands actually operate</h2></div>
           <div style={{ flex: "1 1 360px" }}><p style={{ ...st.bodySm, marginTop: 0 }}>Most scaling brands do not need a law firm on retainer. They need an experienced legal mind who understands their business, works at their pace, and thinks commercially.</p></div>
         </div>
       </FadeIn>
@@ -348,7 +347,7 @@ export default function MarshallGC() {
       <FadeIn style={st.section}>
         <p style={st.label}>Who we work with</p>
         <h2 style={{ ...st.h2, marginBottom: 16 }}>Founder-led brands ready to scale</h2>
-        <p style={{ ...st.body, maxWidth: 600 }}>We work with e-commerce and consumer brands — typically between $3M and $100M in revenue — that are growing faster than their legal infrastructure can keep up.</p>
+        <p style={{ ...st.body, maxWidth: 600 }}>We work with e-commerce and consumer brands, typically between $3M and $100M in revenue, that are growing faster than their legal infrastructure can keep up.</p>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 32 }}>
           {["Fashion & Apparel", "Beauty & Wellness", "Lifestyle & Home", "Consumer Goods", "DTC & E-Commerce", "Consumer Services"].map(tag => <span key={tag} style={{ padding: "8px 20px", borderRadius: 24, border: "1px solid #E8E6E1", fontSize: 13, color: "#666", background: "#fff" }}>{tag}</span>)}
         </div>
@@ -357,7 +356,7 @@ export default function MarshallGC() {
         <div style={{ ...st.card, background: "#F5F4F0", border: "none" }}>
           <p style={st.label}>Experience</p>
           <h2 style={{ ...st.h2, fontSize: 22 }}>Trusted by global brands</h2>
-          <p style={{ ...st.body, maxWidth: 620 }}>{BRAND} works with ambitious consumer brands navigating international growth — including BLVCK Paris, a global fashion and lifestyle brand operating across multiple markets.</p>
+          <p style={{ ...st.body, maxWidth: 620 }}>{BRAND} works with ambitious consumer brands navigating international growth, including BLVCK Paris, a global fashion and lifestyle brand operating across multiple markets.</p>
           <p style={st.bodySm}>We bring that same calibre of thinking to every client engagement.</p>
         </div>
       </FadeIn>
@@ -376,7 +375,7 @@ export default function MarshallGC() {
         </FadeIn>
       </div>
       <Newsletter />
-      <CTA title="Let us talk about where you are headed" subtitle="A short conversation to understand your brand, your challenges, and whether we are the right fit." dark calendly />
+      <CTA title="Talk to us about where you are headed" subtitle="A short conversation to understand your brand, your challenges, and whether we are the right fit." dark calendly />
       <Footer /><CookieBanner />
     </div>
   );
@@ -392,7 +391,7 @@ export default function MarshallGC() {
           <div style={{ flex: 1, minWidth: 280 }}>
             <p style={st.label}>About</p>
             <h1 style={st.h1}>Richard Marshall</h1>
-            <p style={st.body}>I am an English-qualified lawyer and the founder of {BRAND}. I advise scaling consumer brands — including global fashion and lifestyle companies like BLVCK Paris — on the legal and commercial challenges that come with international growth.</p>
+            <p style={st.body}>I am an English-qualified lawyer and the founder of {BRAND}. I advise scaling consumer brands, including global fashion and lifestyle companies like BLVCK Paris, on the legal and commercial challenges that come with international growth.</p>
             <p style={st.bodySm}>That work has given me deep, practical experience across global IP portfolios, licensing partnerships, distribution agreements, and cross-border operations.</p>
             <p style={st.bodySm}>I started {BRAND} because too many scaling brands are caught between expensive law firms and going without proper counsel. Fractional legal leadership solves that.</p>
             <p style={st.bodySm}>I work as an extension of your team. Not as an outside advisor who parachutes in and disappears.</p>
@@ -427,14 +426,14 @@ export default function MarshallGC() {
           </div>
         </FadeIn>
       </div>
-      <CTA title="Let us see if we are the right fit" subtitle="I take on a limited number of clients to ensure each one gets proper attention." dark calendly />
+      <CTA title="See if we are the right fit" subtitle="I take on a limited number of clients to ensure each one gets proper attention." dark calendly />
       <Footer /><CookieBanner />
     </div>
   );
 
   if (page === "Services") return (
     <div style={st.wrap}><Nav />
-      <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Services</p><h1 style={st.h1}>Legal and strategic advisory,<br />structured around your growth.</h1><p style={st.body}>Every engagement is tailored to match how your business actually operates.</p></FadeIn>
+      <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Services</p><h1 style={st.h1}>Legal and strategic advisory,<br />structured around your growth</h1><p style={st.body}>Every engagement is tailored to match how your business actually operates.</p></FadeIn>
       <div style={st.section}>
         <FadeIn><div style={{ ...st.card, marginBottom: 24, background: "#F5F4F0", border: "none" }}><p style={st.label}>Core offering</p><h2 style={{ ...st.h2, fontSize: 24 }}>Fractional General Counsel</h2><p style={{ ...st.body, maxWidth: 620 }}>For scaling brands that need experienced legal leadership without the cost of a full-time hire.</p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, marginTop: 32 }}>
@@ -445,16 +444,16 @@ export default function MarshallGC() {
             {["International expansion legal structure", "Licensing program development", "Distribution agreements", "Strategic partnership agreements", "Investor or corporate structuring"].map((item, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "center" }}><div style={{ width: 6, height: 6, borderRadius: 3, background: "#1a1a1a", flexShrink: 0 }} /><span style={{ fontSize: 14, color: "#555" }}>{item}</span></div>)}
           </div></div></FadeIn>
       </div>
-      <CTA title="Let us scope what you need" subtitle="Every engagement starts with a conversation." calendly />
+      <CTA title="Scope what you need" subtitle="Every engagement starts with a conversation." calendly />
       <Footer /><CookieBanner />
     </div>
   );
 
   if (page === "Pricing") return (
     <div style={st.wrap}><Nav />
-      <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Pricing</p><h1 style={st.h1}>Transparent pricing,<br />no surprises.</h1><p style={st.body}>Fixed monthly retainers or defined project fees. Always predictable.</p></FadeIn>
+      <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Pricing</p><h1 style={st.h1}>Transparent pricing,<br />no surprises</h1><p style={st.body}>Fixed monthly retainers or defined project fees. Always predictable.</p></FadeIn>
       <div style={st.section}>
-        <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Monthly Retainers</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 44 }}>Ongoing advisory, predictable cost</h2></FadeIn>
+        <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Monthly Retainers</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 20 }}>Ongoing advisory, predictable cost</h2><p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.6 }}>All retainers begin with a three-month initial commitment. After that, they roll month-to-month with 30 days notice to cancel. Invoiced monthly in advance.</p></FadeIn>
         <div style={{ display: "flex", justifyContent: "center", gap: 22, flexWrap: "wrap" }}>
           {retainerTiers.map(t => (
             <FadeIn key={t.name} style={{ flex: "1 1 300px", maxWidth: 330 }}>
@@ -474,7 +473,7 @@ export default function MarshallGC() {
       </div>
       <div style={st.divider} />
       <div style={st.section}>
-        <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Strategic Projects</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 40 }}>Fixed scope, fixed fee</h2></FadeIn>
+        <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Strategic Projects</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 16 }}>Fixed scope, fixed fee</h2><p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.6 }}>Project fees are typically split into an upfront payment and a completion payment, agreed before work begins.</p></FadeIn>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(230px, 1fr))", gap: 20 }}>
           {projectExamples.map((p, i) => <FadeIn key={i}><CardHover style={{ height: "100%" }}><div style={{ fontSize: 13, fontWeight: 600 }}>{p.name}</div><div style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", marginTop: 8 }}>{p.price}</div><p style={{ fontSize: 13, color: "#888", lineHeight: 1.6, marginTop: 10, marginBottom: 0 }}>{p.desc}</p></CardHover></FadeIn>)}
         </div>
@@ -491,7 +490,7 @@ export default function MarshallGC() {
 
   if (page === "Who We Work With") return (
     <div style={st.wrap}><Nav />
-      <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Who we work with</p><h1 style={st.h1}>Founder-led brands navigating growth.</h1><p style={st.body}>Ambitious consumer brands — typically $3M to $100M in revenue — scaling faster than their legal infrastructure.</p></FadeIn>
+      <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Who we work with</p><h1 style={st.h1}>Founder-led brands navigating growth</h1><p style={st.body}>Ambitious consumer brands, typically $3M to $100M in revenue, scaling faster than their legal infrastructure.</p></FadeIn>
       <div style={st.section}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(220px, 1fr))", gap: 20, marginBottom: 48 }}>
           {[
@@ -506,22 +505,22 @@ export default function MarshallGC() {
         <div style={st.divider} />
         <FadeIn style={{ marginTop: 48 }}>
           <p style={st.label}>The challenge</p><h2 style={{ ...st.h2, marginBottom: 20 }}>Growth creates legal complexity</h2>
-          <p style={{ ...st.body, maxWidth: 620 }}>International expansion, licensing, brand protection, complex contracts — it stacks up fast.</p>
-          <p style={st.bodySm}>{BRAND} gives scaling brands access to senior-level counsel — the kind of support that lets you operate like a much larger company.</p>
+          <p style={{ ...st.body, maxWidth: 620 }}>International expansion, licensing, brand protection, complex contracts. It stacks up fast.</p>
+          <p style={st.bodySm}>{BRAND} gives scaling brands access to senior-level counsel, the kind of support that lets you operate like a much larger company.</p>
         </FadeIn>
       </div>
-      <CTA title="Sound like your brand?" subtitle="Let us talk about what you are building." dark calendly />
+      <CTA title="Sound like your brand?" subtitle="We should talk about what you are building." dark calendly />
       <Footer /><CookieBanner />
     </div>
   );
 
   if (page === "Approach") return (
     <div style={st.wrap}><Nav />
-      <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Our approach</p><h1 style={st.h1}>Advisory that actually works<br />for growing brands.</h1><p style={st.body}>We are not a law firm. We are a strategic partner that works the way modern brands need.</p></FadeIn>
+      <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Our approach</p><h1 style={st.h1}>Advisory that actually works<br />for growing brands</h1><p style={st.body}>We are not a law firm. We are a strategic partner that works the way modern brands need.</p></FadeIn>
       <div style={st.section}>
         {[
           { num: "01", t: "Direct access to experienced counsel", d: "You work directly with Richard. One senior advisor who knows your business." },
-          { num: "02", t: "Practical, commercial advice", d: "Every piece of advice is grounded in commercial reality — what is the actual risk and what would we do in your position." },
+          { num: "02", t: "Practical, commercial advice", d: "Every piece of advice is grounded in commercial reality. What is the actual risk, and what would we do in your position." },
           { num: "03", t: "Predictable pricing", d: "Monthly retainers or fixed-scope projects. You always know what you are paying." },
           { num: "04", t: "Long-term advisory relationships", d: "We invest in knowing your business. We think in years, not transactions." },
         ].map((item, i) => <FadeIn key={i}><div style={{ display: "flex", gap: 32, padding: "40px 0", borderBottom: i < 3 ? "1px solid #E8E6E1" : "none" }}><div style={{ fontSize: 13, fontWeight: 600, color: "#ddd", flexShrink: 0, paddingTop: 4 }}>{item.num}</div><div><div style={st.h3}>{item.t}</div><p style={{ ...st.bodySm, marginTop: 12 }}>{item.d}</p></div></div></FadeIn>)}
@@ -536,17 +535,17 @@ export default function MarshallGC() {
           ].map((col, i) => <FadeIn key={i}><div style={{ ...st.card, background: col.negative ? "#fff" : "#F5F4F0", border: col.negative ? "1px solid #E8E6E1" : "none", height: "100%" }}><div style={{ ...st.h3, marginBottom: 20 }}>{col.t}</div>{col.items.map((item, j) => <div key={j} style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 12 }}>{col.negative ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 4L10 10M10 4L4 10" stroke="#ccc" strokeWidth="1.5" strokeLinecap="round"/></svg> : <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7.5L5.5 10L11 4" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}<span style={{ fontSize: 14, color: col.negative ? "#999" : "#555" }}>{item}</span></div>)}</div></FadeIn>)}
         </div>
       </div>
-      <CTA title="Ready for a better way to work?" subtitle="Let us start with a conversation." dark calendly />
+      <CTA title="Ready for a better way to work?" subtitle="Start with a conversation." dark calendly />
       <Footer /><CookieBanner />
     </div>
   );
 
   if (page === "Insights") return (
     <div style={st.wrap}><Nav />
-      <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Insights</p><h1 style={st.h1}>Thinking on legal strategy<br />for scaling brands.</h1><p style={st.body}>Practical perspectives on the challenges growing consumer brands face.</p></FadeIn>
+      <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Insights</p><h1 style={st.h1}>Thinking on legal strategy<br />for scaling brands</h1><p style={st.body}>Practical perspectives on the challenges growing consumer brands face.</p></FadeIn>
       <div style={st.section}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: 24 }}>
-          {insights.map((post, i) => <FadeIn key={i}><CardHover style={{ height: "100%", cursor: "pointer" }} onClick={() => go("Article", { articleIdx: i })}><div style={{ display: "flex", gap: 12, marginBottom: 12 }}><span style={{ fontSize: 12, color: "#999" }}>{post.date}</span><span style={{ fontSize: 12, color: "#1a1a1a", background: "#F5F4F0", padding: "2px 10px", borderRadius: 12, fontWeight: 500 }}>{post.tag}</span></div><div style={{ fontSize: 17, fontWeight: 600, lineHeight: 1.35 }}>{post.title}</div><p style={{ fontSize: 14, color: "#888", lineHeight: 1.65, marginTop: 10, marginBottom: 0 }}>{post.excerpt}</p><div style={{ marginTop: 16, fontSize: 13, fontWeight: 500, color: "#1a1a1a" }}>Read more →</div></CardHover></FadeIn>)}
+          {insights.map((post, i) => <FadeIn key={i}><CardHover style={{ height: "100%", cursor: "pointer" }} onClick={() => go("Article", { articleIdx: i })}><div style={{ display: "flex", gap: 12, marginBottom: 12 }}><span style={{ fontSize: 12, color: "#999" }}>{post.date}</span><span style={{ fontSize: 12, color: "#1a1a1a", background: "#F5F4F0", padding: "2px 10px", borderRadius: 12, fontWeight: 500 }}>{post.tag}</span></div><div style={{ fontSize: 17, fontWeight: 600, lineHeight: 1.35 }}>{post.title}</div><p style={{ fontSize: 14, color: "#888", lineHeight: 1.65, marginTop: 10, marginBottom: 0 }}>{post.excerpt}</p><div style={{ marginTop: 16, fontSize: 13, fontWeight: 500, color: "#1a1a1a" }}>Read more</div></CardHover></FadeIn>)}
         </div>
       </div>
       <div style={st.divider} />
@@ -565,7 +564,7 @@ export default function MarshallGC() {
       <FadeIn style={{ maxWidth: 1060, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px", display: "flex", gap: isMobile ? 40 : 64, flexWrap: "wrap" }}>
         <div style={{ flex: 1, minWidth: 280 }}>
           <p style={st.label}>Contact</p>
-          <h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>Let us start a conversation.</h1>
+          <h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>Start a conversation</h1>
           <p style={st.body}>Whether you have a specific challenge or are thinking about your advisory setup as you scale, I would welcome the chance to talk.</p>
           <div style={{ marginTop: 40 }}>
             {[{ label: "Email", value: EMAIL }, { label: "LinkedIn", value: "linkedin.com/in/rickymarshall" }, { label: "WhatsApp", value: "Available on request" }, { label: "Based in", value: "London / Available globally" }, { label: "Response time", value: "Usually within 24 hours" }].map((item, i) => <div key={i} style={{ marginBottom: 20 }}><div style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "#999", marginBottom: 4 }}>{item.label}</div><div style={{ fontSize: 15, color: "#333" }}>{item.value}</div></div>)}
