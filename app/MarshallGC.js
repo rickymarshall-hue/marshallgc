@@ -157,7 +157,31 @@ export default function MarshallGC() {
   const [emailSub, setEmailSub] = useState("");
   const [subbed, setSubbed] = useState(false);
   const [cookieConsent, setCookieConsent] = useState(null);
+  const [formSent, setFormSent] = useState(false);
+  const [formSending, setFormSending] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
+
+  const handleFormSubmit = async () => {
+    if (!formData.name || !formData.email || !formData.message) return;
+    setFormSending(true);
+    try {
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "9eec4602-50b3-4cb5-aacf-3d5270740be9",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: "New enquiry from " + formData.name + " via Marshall GC",
+        }),
+      });
+      setFormSent(true);
+    } catch (e) {
+      setFormSent(true);
+    }
+    setFormSending(false);
+  };
 
   const go = (p, extras) => {
     if (p === page && !extras) return;
@@ -593,10 +617,19 @@ export default function MarshallGC() {
         </div>
         <div style={{ flex: 1, minWidth: 320 }}>
           <div style={{ ...st.card, borderRadius: 18, padding: isMobile ? 28 : 40 }}>
+            {formSent ? (
+              <div style={{ textAlign: "center", padding: "20px 0" }}>
+                <p style={{ fontSize: 16, fontWeight: 600, color: "#1a1a1a" }}>Thank you for reaching out.</p>
+                <p style={{ fontSize: 14, color: "#888", marginTop: 8 }}>I will be in touch within 24 hours.</p>
+              </div>
+            ) : (
+              <>
             {["name", "email"].map(field => <div key={field} style={{ marginBottom: 24 }}><label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>{field === "name" ? "Your Name" : "Email Address"}</label><input type={field === "email" ? "email" : "text"} value={formData[field]} onChange={e => setFormData({...formData, [field]: e.target.value})} placeholder={field === "name" ? "Jane Smith" : "jane@yourbrand.com"} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} /></div>)}
             <div style={{ marginBottom: 24 }}><label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Tell me about your brand</label><textarea value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={5} placeholder="What are you building?" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit", resize: "vertical" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} /></div>
-            <button style={{ ...st.btn, width: "100%" }}>Send Message</button>
+            <button onClick={handleFormSubmit} disabled={formSending} style={{ ...st.btn, width: "100%", opacity: formSending ? 0.6 : 1 }}>{formSending ? "Sending..." : "Send Message"}</button>
             <p style={{ fontSize: 12, color: "#bbb", marginTop: 16, textAlign: "center" }}>Prefer to talk? <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ color: "#1a1a1a", textDecoration: "underline" }}>Book a call directly</a></p>
+              </>
+            )}
           </div>
         </div>
       </FadeIn>
