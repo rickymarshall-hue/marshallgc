@@ -165,7 +165,10 @@ export default function MarshallGC() {
     setTimeout(() => { setPage(p); if (extras && extras.articleIdx !== undefined) setArticleIdx(extras.articleIdx); else setArticleIdx(null); setMenuOpen(false); setTransitioning(false); }, 250);
   };
 
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   const st = {
     wrap: { fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", color: "#1a1a1a", background: "#FAFAF8", minHeight: "100vh", opacity: transitioning ? 0 : 1, transition: "opacity 0.25s ease" },
