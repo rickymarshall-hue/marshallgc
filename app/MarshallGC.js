@@ -220,7 +220,21 @@ export default function MarshallGC() {
     </nav>
   );
 
-  const Newsletter = () => (
+  const Newsletter = () => {
+    const [subLoading, setSubLoading] = useState(false);
+    const handleSubscribe = async () => {
+      if (!emailSub) return;
+      setSubLoading(true);
+      try {
+        const url = "https://magic.beehiiv.com/v1/aa326c60-857b-4c6a-b686-4a8dc1793c26?email=" + encodeURIComponent(emailSub);
+        await fetch(url, { mode: "no-cors" });
+        setSubbed(true);
+      } catch (e) {
+        setSubbed(true);
+      }
+      setSubLoading(false);
+    };
+    return (
     <div style={{ maxWidth: 520, margin: "0 auto", padding: "56px 48px 0", textAlign: "center" }}>
       <p style={{ ...st.label, textAlign: "center" }}>Stay informed</p>
       <p style={{ fontSize: 18, fontWeight: 600, marginTop: 10, letterSpacing: "-0.02em" }}>Legal insights for scaling brands</p>
@@ -228,11 +242,12 @@ export default function MarshallGC() {
       {subbed ? <p style={{ fontSize: 14, color: "#16a34a", marginTop: 20 }}>You are subscribed.</p> : (
         <div style={{ display: "flex", gap: 10, marginTop: 20, maxWidth: 420, margin: "20px auto 0" }}>
           <input type="email" value={emailSub} onChange={e => setEmailSub(e.target.value)} placeholder="you@yourbrand.com" style={{ flex: 1, padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 14, outline: "none", fontFamily: "inherit" }} />
-          <button onClick={() => { if (emailSub) setSubbed(true); }} style={{ ...st.btn, padding: "12px 24px" }}>Subscribe</button>
+          <button onClick={handleSubscribe} disabled={subLoading} style={{ ...st.btn, padding: "12px 24px", opacity: subLoading ? 0.6 : 1 }}>{subLoading ? "..." : "Subscribe"}</button>
         </div>
       )}
     </div>
-  );
+    );
+  };
 
   const Footer = () => (
     <footer style={{ borderTop: "1px solid #E8E6E1", marginTop: 80 }}>
