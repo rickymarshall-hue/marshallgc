@@ -241,7 +241,7 @@ export default function MarshallGC() {
       <p style={{ fontSize: 14, color: "#888", marginTop: 6 }}>Practical advice on IP, licensing, international growth, and more.</p>
       {subbed ? <p style={{ fontSize: 14, color: "#16a34a", marginTop: 20 }}>You are subscribed.</p> : (
         <div style={{ display: "flex", gap: 10, marginTop: 20, maxWidth: 420, margin: "20px auto 0" }}>
-          <input type="email" value={emailSub} onChange={e => setEmailSub(e.target.value)} placeholder="you@yourbrand.com" style={{ flex: 1, padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 14, outline: "none", fontFamily: "inherit" }} />
+          <input type="email" value={emailSub} onChange={e => { e.stopPropagation(); setEmailSub(e.target.value); }} placeholder="you@yourbrand.com" style={{ flex: 1, padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 14, outline: "none", fontFamily: "inherit" }} onKeyDown={e => e.stopPropagation()} />
           <button onClick={handleSubscribe} disabled={subLoading} style={{ ...st.btn, padding: "12px 24px", opacity: subLoading ? 0.6 : 1 }}>{subLoading ? "..." : "Subscribe"}</button>
         </div>
       )}
@@ -389,7 +389,7 @@ export default function MarshallGC() {
           </div>
         </FadeIn>
       </div>
-      <Newsletter />
+      {newsletterSection}
       <CTA title="Talk to us about where you are headed" subtitle="A short conversation to understand your brand, your challenges, and whether we are the right fit." dark calendly />
       <Footer /><CookieBanner />
     </div>
@@ -568,7 +568,7 @@ export default function MarshallGC() {
         <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Case Studies</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 40 }}>Recent work</h2></FadeIn>
         {caseStudies.map((cs, i) => <FadeIn key={i}><div style={{ ...st.card, marginBottom: 20 }}><span style={{ fontSize: 11, fontWeight: 600, color: "#999", letterSpacing: "0.08em", textTransform: "uppercase" }}>{cs.tag}</span><h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>{cs.title}</h3><div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 24, marginTop: 16 }}><div><div style={{ fontSize: 12, fontWeight: 600, color: "#999", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>Challenge</div><p style={{ fontSize: 14, color: "#666", lineHeight: 1.65, margin: 0 }}>{cs.challenge}</p></div><div><div style={{ fontSize: 12, fontWeight: 600, color: "#999", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>Outcome</div><p style={{ fontSize: 14, color: "#666", lineHeight: 1.65, margin: 0 }}>{cs.outcome}</p></div></div><div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap" }}>{cs.metrics.map((m, j) => <span key={j} style={{ padding: "6px 16px", borderRadius: 20, background: "#F5F4F0", fontSize: 12, fontWeight: 500, color: "#555" }}>{m}</span>)}</div></div></FadeIn>)}
       </div>
-      <Newsletter />
+      {newsletterSection}
       <CTA title="Want to discuss your legal strategy?" subtitle="Book a conversation to explore how we can support your growth." dark calendly />
       <Footer /><CookieBanner />
     </div>
