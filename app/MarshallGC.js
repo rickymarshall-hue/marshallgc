@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from "react";
 
 const allPages = ["Home", "About", "Services", "Pricing", "Who We Work With", "Approach", "Insights", "Contact"];
-
 const BRAND = "Marshall GC";
 const DOMAIN = "marshallgc.co";
 const EMAIL = "richard@marshallgc.co";
@@ -20,9 +19,7 @@ const notableTransactions = [
   { name: "Charles & Keith", type: "Retail collaboration & distribution" },
 ];
 
-const distributionMarkets = [
-  "United Kingdom", "European Union", "Taiwan", "Japan", "Kuwait", "United States", "China", "Australia", "GCC (UAE, Saudi Arabia, Bahrain, Oman, Qatar)", "Philippines", "Mexico"
-];
+const distributionMarkets = ["United Kingdom", "European Union", "Taiwan", "Japan", "Kuwait", "United States", "China", "Australia", "GCC (UAE, Saudi Arabia, Bahrain, Oman, Qatar)", "Philippines", "Mexico"];
 
 const testimonials = [
   { text: "Richard has been instrumental in helping us navigate the legal complexities of scaling a global brand. His understanding of fashion, licensing, and international operations is exceptional, and he operates as a true extension of our team.", name: "CEO", role: "Global Fashion & Lifestyle Brand", featured: true },
@@ -98,7 +95,7 @@ const pricingFaqs = [
   { q: "How is payment structured?", a: "Retainers are invoiced monthly in advance. Project fees are typically split into an upfront payment and a completion payment, agreed before work begins." },
 ];
 
-const values = [
+const valuesData = [
   { t: "Embedded, not external", d: "I work as part of your team, anticipating problems before they arise." },
   { t: "Commercial thinking first", d: "Every recommendation is grounded in what actually works for your business." },
   { t: "Senior counsel from day one", d: "You work directly with me. Not a junior associate." },
@@ -154,12 +151,21 @@ export default function MarshallGC() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [openFaq, setOpenFaq] = useState(null);
-  const [emailSub, setEmailSub] = useState("");
   const [subbed, setSubbed] = useState(false);
   const [cookieConsent, setCookieConsent] = useState(null);
   const [formSent, setFormSent] = useState(false);
   const [formSending, setFormSending] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const newsletterRef = useRef(null);
+
+  useEffect(() => { setIsMobile(window.innerWidth < 768); }, []);
+
+  const go = (p, extras) => {
+    if (p === page && !extras) return;
+    setTransitioning(true);
+    setTimeout(() => { setPage(p); if (extras && extras.articleIdx !== undefined) setArticleIdx(extras.articleIdx); else setArticleIdx(null); setMenuOpen(false); setTransitioning(false); }, 250);
+  };
 
   const handleFormSubmit = async () => {
     if (!formData.name || !formData.email || !formData.message) return;
@@ -168,36 +174,23 @@ export default function MarshallGC() {
       await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          access_key: "9eec4602-50b3-4cb5-aacf-3d5270740be9",
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          subject: "New enquiry from " + formData.name + " via Marshall GC",
-        }),
+        body: JSON.stringify({ access_key: "9eec4602-50b3-4cb5-aacf-3d5270740be9", name: formData.name, email: formData.email, message: formData.message, subject: "New enquiry from " + formData.name + " via Marshall GC" }),
       });
-      setFormSent(true);
-    } catch (e) {
-      setFormSent(true);
-    }
+    } catch (e) {}
+    setFormSent(true);
     setFormSending(false);
   };
 
-  const go = (p, extras) => {
-    if (p === page && !extras) return;
-    setTransitioning(true);
-    setTimeout(() => { setPage(p); if (extras && extras.articleIdx !== undefined) setArticleIdx(extras.articleIdx); else setArticleIdx(null); setMenuOpen(false); setTransitioning(false); }, 250);
+  const handleSubscribe = async () => {
+    const email = newsletterRef.current ? newsletterRef.current.value : "";
+    if (!email) return;
+    try { await fetch("https://magic.beehiiv.com/v1/aa326c60-857b-4c6a-b686-4a8dc1793c26?email=" + encodeURIComponent(email), { mode: "no-cors" }); } catch(e) {}
+    setSubbed(true);
   };
-
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
 
   const st = {
     wrap: { fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", color: "#1a1a1a", background: "#FAFAF8", minHeight: "100vh", opacity: transitioning ? 0 : 1, transition: "opacity 0.25s ease" },
     nav: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: isMobile ? "20px 24px" : "28px 48px", maxWidth: 1200, margin: "0 auto", position: "relative" },
-    logo: { fontSize: 15, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer" },
     section: { maxWidth: 1060, margin: "0 auto", padding: isMobile ? "56px 24px" : "80px 48px" },
     label: { fontSize: 11, fontWeight: 600, color: "#999", letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 },
     h1: { fontSize: isMobile ? 32 : 42, fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1.15, margin: "16px 0 0" },
@@ -221,7 +214,7 @@ export default function MarshallGC() {
 
   const Nav = () => (
     <nav style={st.nav}>
-      <div style={st.logo} onClick={() => go("Home")}>
+      <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer" }} onClick={() => go("Home")}>
         <span style={{ fontWeight: 700 }}>M</span><span style={{ fontWeight: 400, fontSize: 13, letterSpacing: "0.08em" }}>ARSHALL</span>
         <span style={{ color: "#bbb", margin: "0 6px" }}>|</span>
         <span style={{ fontWeight: 600, fontSize: 13, letterSpacing: "0.1em", color: "#1a1a1a" }}>GC</span>
@@ -233,48 +226,29 @@ export default function MarshallGC() {
             <div style={{ width: 20, height: 2, background: "#1a1a1a", marginBottom: 5, opacity: menuOpen ? 0 : 1, transition: "opacity 0.2s" }} />
             <div style={{ width: 20, height: 2, background: "#1a1a1a", transition: "all 0.3s", transform: menuOpen ? "rotate(-45deg) translateY(-7px)" : "none" }} />
           </div>
-          {menuOpen && (
-            <div style={{ position: "absolute", top: "100%", left: 0, right: 0, background: "#FAFAF8", borderBottom: "1px solid #E8E6E1", padding: "16px 24px", zIndex: 100 }}>
-              {allPages.map(p => <div key={p} onClick={() => go(p)} style={{ padding: "12px 0", fontSize: 14, color: page === p ? "#1a1a1a" : "#888", fontWeight: page === p ? 500 : 400, cursor: "pointer" }}>{p}</div>)}
-            </div>
-          )}
+          {menuOpen && <div style={{ position: "absolute", top: "100%", left: 0, right: 0, background: "#FAFAF8", borderBottom: "1px solid #E8E6E1", padding: "16px 24px", zIndex: 100 }}>{allPages.map(p => <div key={p} onClick={() => go(p)} style={{ padding: "12px 0", fontSize: 14, color: page === p ? "#1a1a1a" : "#888", fontWeight: page === p ? 500 : 400, cursor: "pointer" }}>{p}</div>)}</div>}
         </>
       ) : (
         <div style={{ display: "flex", gap: 24, fontSize: 13, color: "#777", letterSpacing: "0.02em" }}>
-          {allPages.map(p => <span key={p} onClick={() => go(p)} style={{ cursor: "pointer", color: page === p ? "#1a1a1a" : "#777", fontWeight: page === p ? 500 : 400, transition: "color 0.2s" }}>{p}</span>)}
+          {allPages.map(p => <span key={p} onClick={() => go(p)} style={{ cursor: "pointer", color: page === p ? "#1a1a1a" : "#777", fontWeight: page === p ? 500 : 400 }}>{p}</span>)}
         </div>
       )}
     </nav>
   );
 
-  const Newsletter = () => {
-    const [subLoading, setSubLoading] = useState(false);
-    const handleSubscribe = async () => {
-      if (!emailSub) return;
-      setSubLoading(true);
-      try {
-        const url = "https://magic.beehiiv.com/v1/aa326c60-857b-4c6a-b686-4a8dc1793c26?email=" + encodeURIComponent(emailSub);
-        await fetch(url, { mode: "no-cors" });
-        setSubbed(true);
-      } catch (e) {
-        setSubbed(true);
-      }
-      setSubLoading(false);
-    };
-    return (
+  const NewsletterBlock = (
     <div style={{ maxWidth: 520, margin: "0 auto", padding: "56px 48px 0", textAlign: "center" }}>
-      <p style={{ ...st.label, textAlign: "center" }}>Stay informed</p>
+      <p style={{ fontSize: 11, fontWeight: 600, color: "#999", letterSpacing: "0.12em", textTransform: "uppercase" }}>Stay informed</p>
       <p style={{ fontSize: 18, fontWeight: 600, marginTop: 10, letterSpacing: "-0.02em" }}>Legal insights for scaling brands</p>
       <p style={{ fontSize: 14, color: "#888", marginTop: 6 }}>Practical advice on IP, licensing, international growth, and more.</p>
       {subbed ? <p style={{ fontSize: 14, color: "#16a34a", marginTop: 20 }}>You are subscribed.</p> : (
         <div style={{ display: "flex", gap: 10, marginTop: 20, maxWidth: 420, margin: "20px auto 0" }}>
-          <input type="email" value={emailSub} onChange={e => { e.stopPropagation(); setEmailSub(e.target.value); }} placeholder="you@yourbrand.com" style={{ flex: 1, padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 14, outline: "none", fontFamily: "inherit" }} onKeyDown={e => e.stopPropagation()} />
-          <button onClick={handleSubscribe} disabled={subLoading} style={{ ...st.btn, padding: "12px 24px", opacity: subLoading ? 0.6 : 1 }}>{subLoading ? "..." : "Subscribe"}</button>
+          <input ref={newsletterRef} type="email" defaultValue="" placeholder="you@yourbrand.com" style={{ flex: 1, padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 14, outline: "none", fontFamily: "inherit" }} />
+          <button onClick={handleSubscribe} style={{ ...st.btn, padding: "12px 24px" }}>Subscribe</button>
         </div>
       )}
     </div>
-    );
-  };
+  );
 
   const Footer = () => (
     <footer style={{ borderTop: "1px solid #E8E6E1", marginTop: 80 }}>
@@ -282,9 +256,7 @@ export default function MarshallGC() {
         <div>
           <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>{BRAND}</div>
           <div style={{ fontSize: 13, color: "#999", marginTop: 8, lineHeight: 1.6 }}>Legal and strategic advisory<br />for scaling consumer brands.</div>
-          <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
-            {socials.map(s => <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: 8, border: "1px solid #E8E6E1" }}>{s.icon}</a>)}
-          </div>
+          <div style={{ display: "flex", gap: 12, marginTop: 16 }}>{socials.map(s => <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: 8, border: "1px solid #E8E6E1" }}>{s.icon}</a>)}</div>
         </div>
         <div style={{ display: "flex", gap: isMobile ? 32 : 48 }}>
           <div>
@@ -300,10 +272,7 @@ export default function MarshallGC() {
       </div>
       <div style={{ maxWidth: 1060, margin: "0 auto", padding: isMobile ? "16px 24px 12px" : "24px 48px 12px", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8, fontSize: 12, color: "#ccc" }}>
         <span>© 2026 {BRAND}. All rights reserved.</span>
-        <div style={{ display: "flex", gap: 16 }}>
-          <span onClick={() => go("Privacy")} style={{ cursor: "pointer", textDecoration: "underline" }}>Privacy Policy</span>
-          <span onClick={() => go("Regulatory")} style={{ cursor: "pointer", textDecoration: "underline" }}>Regulatory Information</span>
-        </div>
+        <div style={{ display: "flex", gap: 16 }}><span onClick={() => go("Privacy")} style={{ cursor: "pointer", textDecoration: "underline" }}>Privacy Policy</span><span onClick={() => go("Regulatory")} style={{ cursor: "pointer", textDecoration: "underline" }}>Regulatory Information</span></div>
       </div>
       <div style={{ maxWidth: 1060, margin: "0 auto", padding: isMobile ? "0 24px 24px" : "0 48px 32px" }}>
         <p style={{ fontSize: 11, color: "#bbb", lineHeight: 1.6, margin: 0 }}>{BRAND} is an independent consultancy and is not regulated by the Solicitors Regulation Authority (SRA) or any other legal regulatory body. Richard Marshall qualified as a solicitor of England and Wales and provides advisory services in a non-regulated consultancy capacity. Professional indemnity insurance is maintained. <span onClick={() => go("Regulatory")} style={{ textDecoration: "underline", cursor: "pointer" }}>Full regulatory information</span>.</p>
@@ -321,33 +290,15 @@ export default function MarshallGC() {
     </FadeIn>
   );
 
-  const CookieBanner = () => {
-    if (cookieConsent !== null) return null;
-    return (
-      <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 1000, background: "#fff", borderTop: "1px solid #E8E6E1", padding: isMobile ? "20px 24px" : "20px 48px", boxShadow: "0 -4px 20px rgba(0,0,0,0.06)" }}>
-        <div style={{ maxWidth: 1060, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, flexWrap: "wrap" }}>
-          <div style={{ flex: 1, minWidth: 240 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>We value your privacy</div>
-            <div style={{ fontSize: 13, color: "#888", lineHeight: 1.5 }}>We use cookies to improve your experience. See our <span onClick={() => go("Privacy")} style={{ textDecoration: "underline", cursor: "pointer", color: "#555" }}>Privacy Policy</span>.</div>
-          </div>
-          <div style={{ display: "flex", gap: 10 }}>
-            <button onClick={() => setCookieConsent(false)} style={{ padding: "10px 24px", borderRadius: 8, background: "transparent", border: "1px solid #E8E6E1", fontSize: 13, fontWeight: 500, cursor: "pointer", color: "#888" }}>Decline</button>
-            <button onClick={() => setCookieConsent(true)} style={{ ...st.btn, padding: "10px 24px" }}>Accept All</button>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const CookieBanner = () => { if (cookieConsent !== null) return null; return (<div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 1000, background: "#fff", borderTop: "1px solid #E8E6E1", padding: isMobile ? "20px 24px" : "20px 48px", boxShadow: "0 -4px 20px rgba(0,0,0,0.06)" }}><div style={{ maxWidth: 1060, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, flexWrap: "wrap" }}><div style={{ flex: 1, minWidth: 240 }}><div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>We value your privacy</div><div style={{ fontSize: 13, color: "#888", lineHeight: 1.5 }}>We use cookies to improve your experience. See our <span onClick={() => go("Privacy")} style={{ textDecoration: "underline", cursor: "pointer", color: "#555" }}>Privacy Policy</span>.</div></div><div style={{ display: "flex", gap: 10 }}><button onClick={() => setCookieConsent(false)} style={{ padding: "10px 24px", borderRadius: 8, background: "transparent", border: "1px solid #E8E6E1", fontSize: 13, fontWeight: 500, cursor: "pointer", color: "#888" }}>Decline</button><button onClick={() => setCookieConsent(true)} style={{ ...st.btn, padding: "10px 24px" }}>Accept All</button></div></div></div>); };
 
-  const CardHover = ({ children, style: s2, ...props }) => (
-    <div style={{ ...st.card, ...s2, transition: "box-shadow 0.25s, transform 0.25s" }} onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)"; e.currentTarget.style.transform = "translateY(-3px)"; }} onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "none"; }} {...props}>{children}</div>
-  );
+  const CH = ({ children, style: s2, ...props }) => (<div style={{ ...st.card, ...s2, transition: "box-shadow 0.25s, transform 0.25s" }} onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)"; e.currentTarget.style.transform = "translateY(-3px)"; }} onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "none"; }} {...props}>{children}</div>);
 
   if (page === "Privacy") return (<div style={st.wrap}><Nav /><FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px" }}><p style={st.label}>Legal</p><h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>Privacy Policy</h1><p style={{ fontSize: 13, color: "#999", marginTop: 12 }}>Last updated: March 2026</p>{privacyContent.map((s, i) => <div key={i} style={{ marginTop: 36 }}><h3 style={{ fontSize: 17, fontWeight: 600, margin: 0 }}>{s.h}</h3><p style={{ ...st.bodySm, marginTop: 10 }}>{s.p}</p></div>)}</FadeIn><Footer /><CookieBanner /></div>);
 
   if (page === "Regulatory") return (<div style={st.wrap}><Nav /><FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px" }}><p style={st.label}>Legal</p><h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>Regulatory Information</h1><p style={{ fontSize: 13, color: "#999", marginTop: 12 }}>Last updated: March 2026</p><p style={{ ...st.body, maxWidth: 620 }}>Important information about the regulatory status of {BRAND}.</p>{regulatoryContent.map((s, i) => <div key={i} style={{ marginTop: 36 }}><h3 style={{ fontSize: 17, fontWeight: 600, margin: 0 }}>{s.h}</h3><p style={{ ...st.bodySm, marginTop: 10 }}>{s.p}</p></div>)}</FadeIn><Footer /><CookieBanner /></div>);
 
-  if (page === "Article" && articleIdx !== null) { const a = insights[articleIdx]; return (<div style={st.wrap}><Nav /><FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px" }}><div style={{ marginBottom: 20 }}><span onClick={() => go("Insights")} style={{ fontSize: 13, color: "#888", cursor: "pointer" }}>Back to Insights</span></div><div style={{ display: "flex", gap: 12, marginBottom: 16 }}><span style={{ fontSize: 12, color: "#999" }}>{a.date}</span><span style={{ fontSize: 12, color: "#1a1a1a", background: "#F5F4F0", padding: "2px 10px", borderRadius: 12, fontWeight: 500 }}>{a.tag}</span></div><h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>{a.title}</h1><p style={{ ...st.body, fontSize: 17, color: "#666" }}>{a.excerpt}</p><div style={{ height: 1, background: "#E8E6E1", margin: "36px 0" }} />{a.content.map((s, i) => <div key={i} style={{ marginBottom: 32 }}><h3 style={{ fontSize: 18, fontWeight: 600, margin: 0 }}>{s.h}</h3><p style={{ ...st.bodySm, marginTop: 10 }}>{s.p}</p></div>)}</FadeIn><Newsletter /><CTA title="Need help with this?" subtitle="If this resonates with where your brand is right now, we should talk." dark calendly /><Footer /><CookieBanner /></div>); }
+  if (page === "Article" && articleIdx !== null) { const a = insights[articleIdx]; return (<div style={st.wrap}><Nav /><FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px" }}><div style={{ marginBottom: 20 }}><span onClick={() => go("Insights")} style={{ fontSize: 13, color: "#888", cursor: "pointer" }}>Back to Insights</span></div><div style={{ display: "flex", gap: 12, marginBottom: 16 }}><span style={{ fontSize: 12, color: "#999" }}>{a.date}</span><span style={{ fontSize: 12, color: "#1a1a1a", background: "#F5F4F0", padding: "2px 10px", borderRadius: 12, fontWeight: 500 }}>{a.tag}</span></div><h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>{a.title}</h1><p style={{ ...st.body, fontSize: 17, color: "#666" }}>{a.excerpt}</p><div style={{ height: 1, background: "#E8E6E1", margin: "36px 0" }} />{a.content.map((s, i) => <div key={i} style={{ marginBottom: 32 }}><h3 style={{ fontSize: 18, fontWeight: 600, margin: 0 }}>{s.h}</h3><p style={{ ...st.bodySm, marginTop: 10 }}>{s.p}</p></div>)}</FadeIn>{NewsletterBlock}<CTA title="Need help with this?" subtitle="If this resonates with where your brand is right now, we should talk." dark calendly /><Footer /><CookieBanner /></div>); }
 
   if (page === "Home") return (
     <div style={st.wrap}>
@@ -371,11 +322,7 @@ export default function MarshallGC() {
       <div style={st.section}>
         <FadeIn><p style={st.label}>What we do</p><h2 style={{ ...st.h2, marginBottom: 40 }}>Advisory built around how you grow</h2></FadeIn>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(300px, 1fr))", gap: 20 }}>
-          {[
-            { t: "Fractional General Counsel", d: "Ongoing legal support for brands that need experienced counsel without building a full in-house team." },
-            { t: "Strategic Projects", d: "Defined-scope advisory for international expansion, licensing programs, distribution agreements, and partnership development." },
-            { t: "Brand Protection & IP", d: "Global trademark strategy, portfolio management, and proactive brand protection. When enforcement is needed, we handle initial steps and manage the process with specialist counsel." },
-          ].map((sv, i) => <FadeIn key={i}><CardHover style={{ height: "100%" }}><div style={st.h3}>{sv.t}</div><p style={{ ...st.bodySm, marginTop: 12 }}>{sv.d}</p></CardHover></FadeIn>)}
+          {[{ t: "Fractional General Counsel", d: "Ongoing legal support for brands that need experienced counsel without building a full in-house team." }, { t: "Strategic Projects", d: "Defined-scope advisory for international expansion, licensing programs, distribution agreements, and partnership development." }, { t: "Brand Protection & IP", d: "Global trademark strategy, portfolio management, and proactive brand protection. When enforcement is needed, we handle initial steps and manage the process with specialist counsel." }].map((sv, i) => <FadeIn key={i}><CH style={{ height: "100%" }}><div style={st.h3}>{sv.t}</div><p style={{ ...st.bodySm, marginTop: 12 }}>{sv.d}</p></CH></FadeIn>)}
         </div>
       </div>
       <div style={st.divider} />
@@ -396,43 +343,32 @@ export default function MarshallGC() {
       </FadeIn>
       <FadeIn style={{ maxWidth: 1060, margin: "0 auto", padding: isMobile ? "48px 24px 64px" : "60px 48px 80px" }}>
         <div style={{ ...st.card, background: "#F5F4F0", border: "none" }}>
-          <p style={st.label}>Experience</p>
-          <h2 style={{ ...st.h2, fontSize: 22 }}>Trusted by global brands</h2>
+          <p style={st.label}>Experience</p><h2 style={{ ...st.h2, fontSize: 22 }}>Trusted by global brands</h2>
           <p style={{ ...st.body, maxWidth: 620 }}>{BRAND} works with ambitious consumer brands navigating international growth, including BLVCK Paris, a global fashion and lifestyle brand operating across multiple markets.</p>
           <p style={st.bodySm}>We bring that same calibre of thinking to every client engagement.</p>
         </div>
       </FadeIn>
       <div style={st.section}>
         <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Select Transactions</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 16 }}>Negotiations and agreements involving</h2><p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.6 }}>Richard has advised on commercial transactions, licensing agreements, and strategic partnerships involving the following organisations.</p></FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, 1fr)", gap: 16 }}>
-          {notableTransactions.map((t, i) => <FadeIn key={i}><div style={{ ...st.card, padding: isMobile ? 16 : 24, textAlign: "center" }}><div style={{ fontSize: 15, fontWeight: 600 }}>{t.name}</div><div style={{ fontSize: 12, color: "#999", marginTop: 4 }}>{t.type}</div></div></FadeIn>)}
-        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, 1fr)", gap: 16 }}>{notableTransactions.map((t, i) => <FadeIn key={i}><div style={{ ...st.card, padding: isMobile ? 16 : 24, textAlign: "center" }}><div style={{ fontSize: 15, fontWeight: 600 }}>{t.name}</div><div style={{ fontSize: 12, color: "#999", marginTop: 4 }}>{t.type}</div></div></FadeIn>)}</div>
         <FadeIn style={{ marginTop: 48 }}>
-          <p style={{ ...st.label, textAlign: "center" }}>International Reach</p>
-          <h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 16 }}>Distribution agreements across</h2>
-          <p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 32px", lineHeight: 1.6 }}>Experience structuring and negotiating complex distribution agreements across multiple jurisdictions.</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
-            {distributionMarkets.map((m, i) => <span key={i} style={{ padding: "8px 20px", borderRadius: 24, border: "1px solid #E8E6E1", fontSize: 13, color: "#555", background: "#fff", fontWeight: 500 }}>{m}</span>)}
-          </div>
+          <p style={{ ...st.label, textAlign: "center" }}>International Reach</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 16 }}>Distribution agreements across</h2><p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 32px", lineHeight: 1.6 }}>Experience structuring and negotiating complex distribution agreements across multiple jurisdictions.</p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>{distributionMarkets.map((m, i) => <span key={i} style={{ padding: "8px 20px", borderRadius: 24, border: "1px solid #E8E6E1", fontSize: 13, color: "#555", background: "#fff", fontWeight: 500 }}>{m}</span>)}</div>
         </FadeIn>
       </div>
-      {newsletterSection}
+      {NewsletterBlock}
       <CTA title="Talk to us about where you are headed" subtitle="A short conversation to understand your brand, your challenges, and whether we are the right fit." dark calendly />
       <Footer /><CookieBanner />
     </div>
   );
 
   if (page === "About") return (
-    <div style={st.wrap}>
-      <Nav />
+    <div style={st.wrap}><Nav />
       <FadeIn style={{ maxWidth: 1060, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px 64px" }}>
         <div style={{ display: "flex", gap: isMobile ? 32 : 64, alignItems: "flex-start", flexWrap: "wrap" }}>
-          <div style={{ width: isMobile ? "100%" : 300, height: isMobile ? 280 : 380, borderRadius: 18, overflow: "hidden", flexShrink: 0 }}>
-            <img src="/richard-marshall.jpg" alt="Richard Marshall" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          </div>
+          <div style={{ width: isMobile ? "100%" : 300, height: isMobile ? 280 : 380, borderRadius: 18, overflow: "hidden", flexShrink: 0 }}><img src="/richard-marshall.jpg" alt="Richard Marshall" style={{ width: "100%", height: "100%", objectFit: "cover" }} /></div>
           <div style={{ flex: 1, minWidth: 280 }}>
-            <p style={st.label}>About</p>
-            <h1 style={st.h1}>Richard Marshall</h1>
+            <p style={st.label}>About</p><h1 style={st.h1}>Richard Marshall</h1>
             <p style={st.body}>I am an English-qualified lawyer and the founder of {BRAND}. I advise scaling consumer brands, including global fashion and lifestyle companies like BLVCK Paris, on the legal and commercial challenges that come with international growth.</p>
             <p style={st.bodySm}>That work has given me deep, practical experience across global IP portfolios, licensing partnerships, distribution agreements, and cross-border operations.</p>
             <p style={st.bodySm}>I started {BRAND} because too many scaling brands are caught between expensive law firms and going without proper counsel. Fractional legal leadership solves that.</p>
@@ -443,30 +379,15 @@ export default function MarshallGC() {
       <div style={{ ...st.divider, marginTop: 40 }} />
       <div style={st.section}>
         <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Philosophy</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 40 }}>How I think about advisory</h2></FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>
-          {values.map((v, i) => <FadeIn key={i}><CardHover style={{ height: "100%" }}><div style={st.h3}>{v.t}</div><p style={{ ...st.bodySm, marginTop: 10 }}>{v.d}</p></CardHover></FadeIn>)}
-        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>{valuesData.map((v, i) => <FadeIn key={i}><CH style={{ height: "100%" }}><div style={st.h3}>{v.t}</div><p style={{ ...st.bodySm, marginTop: 10 }}>{v.d}</p></CH></FadeIn>)}</div>
       </div>
       <FadeIn style={{ maxWidth: 700, margin: "0 auto", padding: "0 48px" }}>
-        <div style={{ ...st.card, background: "#F5F4F0", border: "none", textAlign: "center", padding: isMobile ? 32 : 48 }}>
-          <div style={{ fontSize: 17, color: "#444", lineHeight: 1.75, fontStyle: "italic" }}>"{testimonials[0].text}"</div>
-          <div style={{ marginTop: 20, fontSize: 14, fontWeight: 600 }}>{testimonials[0].name}</div>
-          <div style={{ fontSize: 12, color: "#999" }}>{testimonials[0].role}</div>
-        </div>
+        <div style={{ ...st.card, background: "#F5F4F0", border: "none", textAlign: "center", padding: isMobile ? 32 : 48 }}><div style={{ fontSize: 17, color: "#444", lineHeight: 1.75, fontStyle: "italic" }}>"{testimonials[0].text}"</div><div style={{ marginTop: 20, fontSize: 14, fontWeight: 600 }}>{testimonials[0].name}</div><div style={{ fontSize: 12, color: "#999" }}>{testimonials[0].role}</div></div>
       </FadeIn>
       <div style={st.section}>
         <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Select Transactions</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 16 }}>Organisations I have advised on transactions involving</h2><p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.6 }}>Commercial agreements, licensing deals, and strategic partnerships across sectors and markets.</p></FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, 1fr)", gap: 16 }}>
-          {notableTransactions.map((t, i) => <FadeIn key={i}><div style={{ ...st.card, padding: isMobile ? 16 : 24, textAlign: "center" }}><div style={{ fontSize: 15, fontWeight: 600 }}>{t.name}</div><div style={{ fontSize: 12, color: "#999", marginTop: 4 }}>{t.type}</div></div></FadeIn>)}
-        </div>
-        <FadeIn style={{ marginTop: 48 }}>
-          <p style={{ ...st.label, textAlign: "center" }}>International Reach</p>
-          <h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 16 }}>Distribution agreements across</h2>
-          <p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 32px", lineHeight: 1.6 }}>Experience structuring and negotiating complex distribution agreements across multiple jurisdictions.</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
-            {distributionMarkets.map((m, i) => <span key={i} style={{ padding: "8px 20px", borderRadius: 24, border: "1px solid #E8E6E1", fontSize: 13, color: "#555", background: "#fff", fontWeight: 500 }}>{m}</span>)}
-          </div>
-        </FadeIn>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, 1fr)", gap: 16 }}>{notableTransactions.map((t, i) => <FadeIn key={i}><div style={{ ...st.card, padding: isMobile ? 16 : 24, textAlign: "center" }}><div style={{ fontSize: 15, fontWeight: 600 }}>{t.name}</div><div style={{ fontSize: 12, color: "#999", marginTop: 4 }}>{t.type}</div></div></FadeIn>)}</div>
+        <FadeIn style={{ marginTop: 48 }}><p style={{ ...st.label, textAlign: "center" }}>International Reach</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 16 }}>Distribution agreements across</h2><p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 32px", lineHeight: 1.6 }}>Experience structuring and negotiating complex distribution agreements across multiple jurisdictions.</p><div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>{distributionMarkets.map((m, i) => <span key={i} style={{ padding: "8px 20px", borderRadius: 24, border: "1px solid #E8E6E1", fontSize: 13, color: "#555", background: "#fff", fontWeight: 500 }}>{m}</span>)}</div></FadeIn>
       </div>
       <CTA title="See if we are the right fit" subtitle="I take on a limited number of clients to ensure each one gets proper attention." dark calendly />
       <Footer /><CookieBanner />
@@ -477,14 +398,8 @@ export default function MarshallGC() {
     <div style={st.wrap}><Nav />
       <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Services</p><h1 style={st.h1}>Legal and strategic advisory,<br />structured around your growth</h1><p style={st.body}>Every engagement is tailored to match how your business actually operates.</p></FadeIn>
       <div style={st.section}>
-        <FadeIn><div style={{ ...st.card, marginBottom: 24, background: "#F5F4F0", border: "none" }}><p style={st.label}>Core offering</p><h2 style={{ ...st.h2, fontSize: 24 }}>Fractional General Counsel</h2><p style={{ ...st.body, maxWidth: 620 }}>For scaling brands that need experienced legal leadership without the cost of a full-time hire.</p>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, marginTop: 32 }}>
-            {["Commercial contracts", "Supplier & manufacturing agreements", "Distribution partnerships", "Licensing collaborations", "IP portfolio strategy", "Brand protection & monitoring", "Commercial negotiation support", "General legal advisory"].map((item, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "center" }}><div style={{ width: 6, height: 6, borderRadius: 3, background: "#1a1a1a", flexShrink: 0 }} /><span style={{ fontSize: 14, color: "#555" }}>{item}</span></div>)}
-          </div></div></FadeIn>
-        <FadeIn><div style={st.card}><p style={st.label}>Defined scope</p><h2 style={{ ...st.h2, fontSize: 24 }}>Strategic Projects</h2><p style={{ ...st.body, maxWidth: 620 }}>For specific initiatives that need focused attention with clear deliverables and timelines.</p>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, marginTop: 32 }}>
-            {["International expansion legal structure", "Licensing program development", "Distribution agreements", "Strategic partnership agreements", "Investor or corporate structuring"].map((item, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "center" }}><div style={{ width: 6, height: 6, borderRadius: 3, background: "#1a1a1a", flexShrink: 0 }} /><span style={{ fontSize: 14, color: "#555" }}>{item}</span></div>)}
-          </div></div></FadeIn>
+        <FadeIn><div style={{ ...st.card, marginBottom: 24, background: "#F5F4F0", border: "none" }}><p style={st.label}>Core offering</p><h2 style={{ ...st.h2, fontSize: 24 }}>Fractional General Counsel</h2><p style={{ ...st.body, maxWidth: 620 }}>For scaling brands that need experienced legal leadership without the cost of a full-time hire.</p><div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, marginTop: 32 }}>{["Commercial contracts", "Supplier & manufacturing agreements", "Distribution partnerships", "Licensing collaborations", "IP portfolio strategy", "Brand protection & monitoring", "Commercial negotiation support", "General legal advisory"].map((item, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "center" }}><div style={{ width: 6, height: 6, borderRadius: 3, background: "#1a1a1a", flexShrink: 0 }} /><span style={{ fontSize: 14, color: "#555" }}>{item}</span></div>)}</div></div></FadeIn>
+        <FadeIn><div style={st.card}><p style={st.label}>Defined scope</p><h2 style={{ ...st.h2, fontSize: 24 }}>Strategic Projects</h2><p style={{ ...st.body, maxWidth: 620 }}>For specific initiatives that need focused attention with clear deliverables and timelines.</p><div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, marginTop: 32 }}>{["International expansion legal structure", "Licensing program development", "Distribution agreements", "Strategic partnership agreements", "Investor or corporate structuring"].map((item, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "center" }}><div style={{ width: 6, height: 6, borderRadius: 3, background: "#1a1a1a", flexShrink: 0 }} /><span style={{ fontSize: 14, color: "#555" }}>{item}</span></div>)}</div></div></FadeIn>
       </div>
       <CTA title="Scope what you need" subtitle="Every engagement starts with a conversation." calendly />
       <Footer /><CookieBanner />
@@ -504,9 +419,7 @@ export default function MarshallGC() {
                 <div style={{ fontSize: 12, fontWeight: 600, color: "#999", letterSpacing: "0.08em", textTransform: "uppercase" }}>{t.name}</div>
                 <div style={{ marginTop: 16, display: "flex", alignItems: "baseline", gap: 2 }}><span style={{ fontSize: 34, fontWeight: 600, letterSpacing: "-0.03em" }}>{t.price}</span><span style={{ fontSize: 14, color: "#999" }}>{t.unit}</span></div>
                 <p style={{ fontSize: 13, color: "#888", lineHeight: 1.6, marginTop: 12, minHeight: 44 }}>{t.desc}</p>
-                <div style={{ marginTop: 20, marginBottom: 28, flex: 1 }}>
-                  {t.features.map((f, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10 }}><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginTop: 3, flexShrink: 0 }}><path d="M3 7.5L5.5 10L11 4" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg><span style={{ fontSize: 13, color: "#555", lineHeight: 1.5 }}>{f}</span></div>)}
-                </div>
+                <div style={{ marginTop: 20, marginBottom: 28, flex: 1 }}>{t.features.map((f, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10 }}><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginTop: 3, flexShrink: 0 }}><path d="M3 7.5L5.5 10L11 4" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg><span style={{ fontSize: 13, color: "#555", lineHeight: 1.5 }}>{f}</span></div>)}</div>
                 <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={t.highlighted ? { ...st.btn, width: "100%", padding: "13px 0", borderRadius: 8, textAlign: "center", boxSizing: "border-box" } : { ...st.btnOut, width: "100%", padding: "12px 0", borderRadius: 8, textAlign: "center", boxSizing: "border-box", textDecoration: "none" }}>{t.cta}</a>
               </div>
             </FadeIn>
@@ -516,9 +429,7 @@ export default function MarshallGC() {
       <div style={st.divider} />
       <div style={st.section}>
         <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Strategic Projects</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 16 }}>Fixed scope, fixed fee</h2><p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.6 }}>Project fees are typically split into an upfront payment and a completion payment, agreed before work begins.</p></FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(230px, 1fr))", gap: 20 }}>
-          {projectExamples.map((p, i) => <FadeIn key={i}><CardHover style={{ height: "100%" }}><div style={{ fontSize: 13, fontWeight: 600 }}>{p.name}</div><div style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", marginTop: 8 }}>{p.price}</div><p style={{ fontSize: 13, color: "#888", lineHeight: 1.6, marginTop: 10, marginBottom: 0 }}>{p.desc}</p></CardHover></FadeIn>)}
-        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(230px, 1fr))", gap: 20 }}>{projectExamples.map((p, i) => <FadeIn key={i}><CH style={{ height: "100%" }}><div style={{ fontSize: 13, fontWeight: 600 }}>{p.name}</div><div style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", marginTop: 8 }}>{p.price}</div><p style={{ fontSize: 13, color: "#888", lineHeight: 1.6, marginTop: 10, marginBottom: 0 }}>{p.desc}</p></CH></FadeIn>)}</div>
       </div>
       <div style={st.divider} />
       <div style={{ maxWidth: 660, margin: "0 auto", padding: isMobile ? "56px 24px" : "72px 48px" }}>
@@ -535,21 +446,10 @@ export default function MarshallGC() {
       <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Who we work with</p><h1 style={st.h1}>Founder-led brands navigating growth</h1><p style={st.body}>Ambitious consumer brands, typically $3M to $100M in revenue, scaling faster than their legal infrastructure.</p></FadeIn>
       <div style={st.section}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(220px, 1fr))", gap: 20, marginBottom: 48 }}>
-          {[
-            { t: "Fashion & Apparel", d: "From DTC startups to labels expanding internationally." },
-            { t: "Beauty & Wellness", d: "Brands navigating regulatory complexity across markets." },
-            { t: "Lifestyle & Home", d: "Companies building licensing and distribution at scale." },
-            { t: "Consumer Goods", d: "Product brands managing supplier relationships and IP." },
-            { t: "E-Commerce & DTC", d: "Digital-first brands entering wholesale and international channels." },
-            { t: "Consumer Services", d: "Service businesses scaling operations and partnerships." },
-          ].map((c, i) => <FadeIn key={i}><div style={{ ...st.card, height: "100%" }}><div style={{ ...st.h3, fontSize: 15 }}>{c.t}</div><p style={{ fontSize: 13, color: "#888", lineHeight: 1.6, marginTop: 8, marginBottom: 0 }}>{c.d}</p></div></FadeIn>)}
+          {[{ t: "Fashion & Apparel", d: "From DTC startups to labels expanding internationally." }, { t: "Beauty & Wellness", d: "Brands navigating regulatory complexity across markets." }, { t: "Lifestyle & Home", d: "Companies building licensing and distribution at scale." }, { t: "Consumer Goods", d: "Product brands managing supplier relationships and IP." }, { t: "E-Commerce & DTC", d: "Digital-first brands entering wholesale and international channels." }, { t: "Consumer Services", d: "Service businesses scaling operations and partnerships." }].map((c, i) => <FadeIn key={i}><div style={{ ...st.card, height: "100%" }}><div style={{ ...st.h3, fontSize: 15 }}>{c.t}</div><p style={{ fontSize: 13, color: "#888", lineHeight: 1.6, marginTop: 8, marginBottom: 0 }}>{c.d}</p></div></FadeIn>)}
         </div>
         <div style={st.divider} />
-        <FadeIn style={{ marginTop: 48 }}>
-          <p style={st.label}>The challenge</p><h2 style={{ ...st.h2, marginBottom: 20 }}>Growth creates legal complexity</h2>
-          <p style={{ ...st.body, maxWidth: 620 }}>International expansion, licensing, brand protection, complex contracts. It stacks up fast.</p>
-          <p style={st.bodySm}>{BRAND} gives scaling brands access to senior-level counsel, the kind of support that lets you operate like a much larger company.</p>
-        </FadeIn>
+        <FadeIn style={{ marginTop: 48 }}><p style={st.label}>The challenge</p><h2 style={{ ...st.h2, marginBottom: 20 }}>Growth creates legal complexity</h2><p style={{ ...st.body, maxWidth: 620 }}>International expansion, licensing, brand protection, complex contracts. It stacks up fast.</p><p style={st.bodySm}>{BRAND} gives scaling brands access to senior-level counsel, the kind of support that lets you operate like a much larger company.</p></FadeIn>
       </div>
       <CTA title="Sound like your brand?" subtitle="We should talk about what you are building." dark calendly />
       <Footer /><CookieBanner />
@@ -560,21 +460,13 @@ export default function MarshallGC() {
     <div style={st.wrap}><Nav />
       <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Our approach</p><h1 style={st.h1}>Advisory that actually works<br />for growing brands</h1><p style={st.body}>We are not a law firm. We are a strategic partner that works the way modern brands need.</p></FadeIn>
       <div style={st.section}>
-        {[
-          { num: "01", t: "Direct access to experienced counsel", d: "You work directly with Richard. One senior advisor who knows your business." },
-          { num: "02", t: "Practical, commercial advice", d: "Every piece of advice is grounded in commercial reality. What is the actual risk, and what would we do in your position." },
-          { num: "03", t: "Predictable pricing", d: "Monthly retainers or fixed-scope projects. You always know what you are paying." },
-          { num: "04", t: "Long-term advisory relationships", d: "We invest in knowing your business. We think in years, not transactions." },
-        ].map((item, i) => <FadeIn key={i}><div style={{ display: "flex", gap: 32, padding: "40px 0", borderBottom: i < 3 ? "1px solid #E8E6E1" : "none" }}><div style={{ fontSize: 13, fontWeight: 600, color: "#ddd", flexShrink: 0, paddingTop: 4 }}>{item.num}</div><div><div style={st.h3}>{item.t}</div><p style={{ ...st.bodySm, marginTop: 12 }}>{item.d}</p></div></div></FadeIn>)}
+        {[{ num: "01", t: "Direct access to experienced counsel", d: "You work directly with Richard. One senior advisor who knows your business." }, { num: "02", t: "Practical, commercial advice", d: "Every piece of advice is grounded in commercial reality. What is the actual risk, and what would we do in your position." }, { num: "03", t: "Predictable pricing", d: "Monthly retainers or fixed-scope projects. You always know what you are paying." }, { num: "04", t: "Long-term advisory relationships", d: "We invest in knowing your business. We think in years, not transactions." }].map((item, i) => <FadeIn key={i}><div style={{ display: "flex", gap: 32, padding: "40px 0", borderBottom: i < 3 ? "1px solid #E8E6E1" : "none" }}><div style={{ fontSize: 13, fontWeight: 600, color: "#ddd", flexShrink: 0, paddingTop: 4 }}>{item.num}</div><div><div style={st.h3}>{item.t}</div><p style={{ ...st.bodySm, marginTop: 12 }}>{item.d}</p></div></div></FadeIn>)}
       </div>
       <div style={st.divider} />
       <div style={st.section}>
         <FadeIn><p style={{ ...st.label, textAlign: "center" }}>The difference</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 40 }}>Why brands choose fractional counsel</h2></FadeIn>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: 24 }}>
-          {[
-            { t: "Traditional law firm", items: ["Hourly billing creates hesitation", "Rotating associates", "Transactional relationship", "Legal-first thinking", "You are a small client"], negative: true },
-            { t: BRAND, items: ["Predictable monthly pricing", "One senior advisor, deep knowledge", "Long-term partnership", "Commercial-first thinking", "You are a priority, always"], negative: false },
-          ].map((col, i) => <FadeIn key={i}><div style={{ ...st.card, background: col.negative ? "#fff" : "#F5F4F0", border: col.negative ? "1px solid #E8E6E1" : "none", height: "100%" }}><div style={{ ...st.h3, marginBottom: 20 }}>{col.t}</div>{col.items.map((item, j) => <div key={j} style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 12 }}>{col.negative ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 4L10 10M10 4L4 10" stroke="#ccc" strokeWidth="1.5" strokeLinecap="round"/></svg> : <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7.5L5.5 10L11 4" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}<span style={{ fontSize: 14, color: col.negative ? "#999" : "#555" }}>{item}</span></div>)}</div></FadeIn>)}
+          {[{ t: "Traditional law firm", items: ["Hourly billing creates hesitation", "Rotating associates", "Transactional relationship", "Legal-first thinking", "You are a small client"], negative: true }, { t: BRAND, items: ["Predictable monthly pricing", "One senior advisor, deep knowledge", "Long-term partnership", "Commercial-first thinking", "You are a priority, always"], negative: false }].map((col, i) => <FadeIn key={i}><div style={{ ...st.card, background: col.negative ? "#fff" : "#F5F4F0", border: col.negative ? "1px solid #E8E6E1" : "none", height: "100%" }}><div style={{ ...st.h3, marginBottom: 20 }}>{col.t}</div>{col.items.map((item, j) => <div key={j} style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 12 }}>{col.negative ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 4L10 10M10 4L4 10" stroke="#ccc" strokeWidth="1.5" strokeLinecap="round"/></svg> : <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7.5L5.5 10L11 4" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}<span style={{ fontSize: 14, color: col.negative ? "#999" : "#555" }}>{item}</span></div>)}</div></FadeIn>)}
         </div>
       </div>
       <CTA title="Ready for a better way to work?" subtitle="Start with a conversation." dark calendly />
@@ -586,16 +478,14 @@ export default function MarshallGC() {
     <div style={st.wrap}><Nav />
       <FadeIn style={{ maxWidth: 720, margin: "0 auto", padding: isMobile ? "64px 24px 24px" : "80px 48px 24px" }}><p style={st.label}>Insights</p><h1 style={st.h1}>Thinking on legal strategy<br />for scaling brands</h1><p style={st.body}>Practical perspectives on the challenges growing consumer brands face.</p></FadeIn>
       <div style={st.section}>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: 24 }}>
-          {insights.map((post, i) => <FadeIn key={i}><CardHover style={{ height: "100%", cursor: "pointer" }} onClick={() => go("Article", { articleIdx: i })}><div style={{ display: "flex", gap: 12, marginBottom: 12 }}><span style={{ fontSize: 12, color: "#999" }}>{post.date}</span><span style={{ fontSize: 12, color: "#1a1a1a", background: "#F5F4F0", padding: "2px 10px", borderRadius: 12, fontWeight: 500 }}>{post.tag}</span></div><div style={{ fontSize: 17, fontWeight: 600, lineHeight: 1.35 }}>{post.title}</div><p style={{ fontSize: 14, color: "#888", lineHeight: 1.65, marginTop: 10, marginBottom: 0 }}>{post.excerpt}</p><div style={{ marginTop: 16, fontSize: 13, fontWeight: 500, color: "#1a1a1a" }}>Read more</div></CardHover></FadeIn>)}
-        </div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: 24 }}>{insights.map((post, i) => <FadeIn key={i}><CH style={{ height: "100%", cursor: "pointer" }} onClick={() => go("Article", { articleIdx: i })}><div style={{ display: "flex", gap: 12, marginBottom: 12 }}><span style={{ fontSize: 12, color: "#999" }}>{post.date}</span><span style={{ fontSize: 12, color: "#1a1a1a", background: "#F5F4F0", padding: "2px 10px", borderRadius: 12, fontWeight: 500 }}>{post.tag}</span></div><div style={{ fontSize: 17, fontWeight: 600, lineHeight: 1.35 }}>{post.title}</div><p style={{ fontSize: 14, color: "#888", lineHeight: 1.65, marginTop: 10, marginBottom: 0 }}>{post.excerpt}</p><div style={{ marginTop: 16, fontSize: 13, fontWeight: 500, color: "#1a1a1a" }}>Read more</div></CH></FadeIn>)}</div>
       </div>
       <div style={st.divider} />
       <div style={st.section}>
         <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Case Studies</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 40 }}>Recent work</h2></FadeIn>
         {caseStudies.map((cs, i) => <FadeIn key={i}><div style={{ ...st.card, marginBottom: 20 }}><span style={{ fontSize: 11, fontWeight: 600, color: "#999", letterSpacing: "0.08em", textTransform: "uppercase" }}>{cs.tag}</span><h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>{cs.title}</h3><div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 24, marginTop: 16 }}><div><div style={{ fontSize: 12, fontWeight: 600, color: "#999", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>Challenge</div><p style={{ fontSize: 14, color: "#666", lineHeight: 1.65, margin: 0 }}>{cs.challenge}</p></div><div><div style={{ fontSize: 12, fontWeight: 600, color: "#999", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>Outcome</div><p style={{ fontSize: 14, color: "#666", lineHeight: 1.65, margin: 0 }}>{cs.outcome}</p></div></div><div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap" }}>{cs.metrics.map((m, j) => <span key={j} style={{ padding: "6px 16px", borderRadius: 20, background: "#F5F4F0", fontSize: 12, fontWeight: 500, color: "#555" }}>{m}</span>)}</div></div></FadeIn>)}
       </div>
-      {newsletterSection}
+      {NewsletterBlock}
       <CTA title="Want to discuss your legal strategy?" subtitle="Book a conversation to explore how we can support your growth." dark calendly />
       <Footer /><CookieBanner />
     </div>
@@ -605,15 +495,10 @@ export default function MarshallGC() {
     <div style={st.wrap}><Nav />
       <FadeIn style={{ maxWidth: 1060, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px", display: "flex", gap: isMobile ? 40 : 64, flexWrap: "wrap" }}>
         <div style={{ flex: 1, minWidth: 280 }}>
-          <p style={st.label}>Contact</p>
-          <h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>Start a conversation</h1>
+          <p style={st.label}>Contact</p><h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>Start a conversation</h1>
           <p style={st.body}>Whether you have a specific challenge or are thinking about your advisory setup as you scale, I would welcome the chance to talk.</p>
-          <div style={{ marginTop: 40 }}>
-            {[{ label: "Email", value: EMAIL }, { label: "LinkedIn", value: "linkedin.com/in/rickymarshall" }, { label: "WhatsApp", value: "Available on request" }, { label: "Based in", value: "London / Available globally" }, { label: "Response time", value: "Usually within 24 hours" }].map((item, i) => <div key={i} style={{ marginBottom: 20 }}><div style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "#999", marginBottom: 4 }}>{item.label}</div><div style={{ fontSize: 15, color: "#333" }}>{item.value}</div></div>)}
-          </div>
-          <div style={{ display: "flex", gap: 12, marginTop: 24 }}>
-            {socials.map(s => <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40, borderRadius: 8, border: "1px solid #E8E6E1" }}>{s.icon}</a>)}
-          </div>
+          <div style={{ marginTop: 40 }}>{[{ label: "Email", value: EMAIL }, { label: "LinkedIn", value: "linkedin.com/in/rickymarshall" }, { label: "WhatsApp", value: "Available on request" }, { label: "Based in", value: "London / Available globally" }, { label: "Response time", value: "Usually within 24 hours" }].map((item, i) => <div key={i} style={{ marginBottom: 20 }}><div style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "#999", marginBottom: 4 }}>{item.label}</div><div style={{ fontSize: 15, color: "#333" }}>{item.value}</div></div>)}</div>
+          <div style={{ display: "flex", gap: 12, marginTop: 24 }}>{socials.map(s => <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40, borderRadius: 8, border: "1px solid #E8E6E1" }}>{s.icon}</a>)}</div>
         </div>
         <div style={{ flex: 1, minWidth: 320 }}>
           <div style={{ ...st.card, borderRadius: 18, padding: isMobile ? 28 : 40 }}>
@@ -624,18 +509,9 @@ export default function MarshallGC() {
               </div>
             ) : (
               <div>
-                <div style={{ marginBottom: 24 }}>
-                  <label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Your Name</label>
-                  <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="Jane Smith" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} />
-                </div>
-                <div style={{ marginBottom: 24 }}>
-                  <label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Email Address</label>
-                  <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="jane@yourbrand.com" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} />
-                </div>
-                <div style={{ marginBottom: 24 }}>
-                  <label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Tell me about your brand</label>
-                  <textarea value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={5} placeholder="What are you building?" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit", resize: "vertical" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} />
-                </div>
+                <div style={{ marginBottom: 24 }}><label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Your Name</label><input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="Jane Smith" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} /></div>
+                <div style={{ marginBottom: 24 }}><label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Email Address</label><input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="jane@yourbrand.com" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} /></div>
+                <div style={{ marginBottom: 24 }}><label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Tell me about your brand</label><textarea value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={5} placeholder="What are you building?" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit", resize: "vertical" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} /></div>
                 <button onClick={handleFormSubmit} disabled={formSending} style={{ ...st.btn, width: "100%", opacity: formSending ? 0.6 : 1, cursor: formSending ? "wait" : "pointer" }}>{formSending ? "Sending..." : "Send Message"}</button>
                 <p style={{ fontSize: 12, color: "#bbb", marginTop: 16, textAlign: "center" }}>Prefer to talk? <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ color: "#1a1a1a", textDecoration: "underline" }}>Book a call directly</a></p>
               </div>
