@@ -623,12 +623,22 @@ export default function MarshallGC() {
                 <p style={{ fontSize: 14, color: "#888", marginTop: 8 }}>I will be in touch within 24 hours.</p>
               </div>
             ) : (
-              <>
-            {["name", "email"].map(field => <div key={field} style={{ marginBottom: 24 }}><label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>{field === "name" ? "Your Name" : "Email Address"}</label><input type={field === "email" ? "email" : "text"} value={formData[field]} onChange={e => setFormData({...formData, [field]: e.target.value})} placeholder={field === "name" ? "Jane Smith" : "jane@yourbrand.com"} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} /></div>)}
-            <div style={{ marginBottom: 24 }}><label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Tell me about your brand</label><textarea value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={5} placeholder="What are you building?" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit", resize: "vertical" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} /></div>
-            <button onClick={handleFormSubmit} disabled={formSending} style={{ ...st.btn, width: "100%", opacity: formSending ? 0.6 : 1 }}>{formSending ? "Sending..." : "Send Message"}</button>
-            <p style={{ fontSize: 12, color: "#bbb", marginTop: 16, textAlign: "center" }}>Prefer to talk? <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ color: "#1a1a1a", textDecoration: "underline" }}>Book a call directly</a></p>
-              </>
+              <div>
+                <div style={{ marginBottom: 24 }}>
+                  <label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Your Name</label>
+                  <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="Jane Smith" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} />
+                </div>
+                <div style={{ marginBottom: 24 }}>
+                  <label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Email Address</label>
+                  <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="jane@yourbrand.com" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} />
+                </div>
+                <div style={{ marginBottom: 24 }}>
+                  <label style={{ fontSize: 12, fontWeight: 500, color: "#888", display: "block", marginBottom: 8 }}>Tell me about your brand</label>
+                  <textarea value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={5} placeholder="What are you building?" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 15, outline: "none", boxSizing: "border-box", fontFamily: "inherit", resize: "vertical" }} onFocus={e => e.target.style.borderColor = "#1a1a1a"} onBlur={e => e.target.style.borderColor = "#E8E6E1"} />
+                </div>
+                <button onClick={handleFormSubmit} disabled={formSending} style={{ ...st.btn, width: "100%", opacity: formSending ? 0.6 : 1, cursor: formSending ? "wait" : "pointer" }}>{formSending ? "Sending..." : "Send Message"}</button>
+                <p style={{ fontSize: 12, color: "#bbb", marginTop: 16, textAlign: "center" }}>Prefer to talk? <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ color: "#1a1a1a", textDecoration: "underline" }}>Book a call directly</a></p>
+              </div>
             )}
           </div>
         </div>
