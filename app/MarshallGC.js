@@ -353,7 +353,7 @@ export default function MarshallGC() {
     <div style={st.wrap}><Nav />
       <FadeIn style={{ maxWidth: 1060, margin: "0 auto", padding: isMobile ? "64px 24px" : "80px 48px 64px" }}>
         <div style={{ display: "flex", gap: isMobile ? 32 : 64, alignItems: "flex-start", flexWrap: "wrap" }}>
-          <div style={{ width: isMobile ? "100%" : 300, height: isMobile ? 320 : 380, borderRadius: 18, overflow: "hidden", flexShrink: 0 }}><img src="/richard-marshall.jpg" alt="Richard Marshall" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} /></div>
+          <div style={{ width: isMobile ? "100%" : 300, height: isMobile ? 400 : 380, borderRadius: 18, overflow: "hidden", flexShrink: 0 }}><img src="/richard-marshall.jpg" alt="Richard Marshall" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%" }} /></div>
           <div style={{ flex: 1, minWidth: 280 }}>
             <p style={st.label}>About</p><h1 style={st.h1}>Richard Marshall</h1>
             <p style={st.body}>I am an English-qualified lawyer and the founder of {BRAND}. I advise scaling consumer brands, including global fashion and lifestyle companies like BLVCK Paris, on the legal and commercial challenges that come with international growth.</p>
