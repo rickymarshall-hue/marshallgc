@@ -22,7 +22,7 @@ const notableTransactions = [
 const distributionMarkets = ["United Kingdom", "European Union", "Taiwan", "Japan", "Kuwait", "United States", "China", "Australia", "GCC (UAE, Saudi Arabia, Bahrain, Oman, Qatar)", "Philippines", "Mexico"];
 
 const testimonials = [
-  { text: "Richard has been instrumental in helping us navigate the legal complexities of scaling a global brand. His understanding of fashion, licensing, and international operations is exceptional, and he operates as a true extension of our team.", name: "CEO", role: "Global Fashion & Lifestyle Brand", featured: true },
+  { text: "Most lawyers slow you down. Richard speeds you up. He has been our go-to for IP, licensing, and international partnerships as we have grown BLVCK into a global brand. He thinks like a business partner, not a lawyer.", name: "Julian Ohayon", role: "Founder, BLVCK Paris", featured: true },
   { text: "We needed someone who could move at our pace and think commercially, not just legally. Richard immediately understood our business and helped us structure partnerships we would not have got right on our own.", name: "Founder", role: "DTC Beauty Brand" },
   { text: "Having Richard as a fractional general counsel gave us the confidence to expand into three new markets in twelve months. He handled the complexity so we could focus on growth.", name: "CEO", role: "E-Commerce Lifestyle Brand" },
 ];
@@ -209,7 +209,6 @@ export default function MarshallGC() {
 
   const socials = [
     { name: "LinkedIn", url: "https://linkedin.com/in/rickymarshall", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z" stroke="#888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-    { name: "WhatsApp", url: "#", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" stroke="#888" strokeWidth="1.5"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" stroke="#888" strokeWidth="1.5"/></svg> },
   ];
 
   const Nav = () => (
@@ -497,7 +496,7 @@ export default function MarshallGC() {
         <div style={{ flex: 1, minWidth: 280 }}>
           <p style={st.label}>Contact</p><h1 style={{ ...st.h1, fontSize: isMobile ? 28 : 36 }}>Start a conversation</h1>
           <p style={st.body}>Whether you have a specific challenge or are thinking about your advisory setup as you scale, I would welcome the chance to talk.</p>
-          <div style={{ marginTop: 40 }}>{[{ label: "Email", value: EMAIL }, { label: "LinkedIn", value: "linkedin.com/in/rickymarshall" }, { label: "WhatsApp", value: "Available on request" }, { label: "Based in", value: "London / Available globally" }, { label: "Response time", value: "Usually within 24 hours" }].map((item, i) => <div key={i} style={{ marginBottom: 20 }}><div style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "#999", marginBottom: 4 }}>{item.label}</div><div style={{ fontSize: 15, color: "#333" }}>{item.value}</div></div>)}</div>
+          <div style={{ marginTop: 40 }}>{[{ label: "Email", value: EMAIL }, { label: "LinkedIn", value: "linkedin.com/in/rickymarshall" }, { label: "Based in", value: "London / Available globally" }, { label: "Response time", value: "Usually within 24 hours" }].map((item, i) => <div key={i} style={{ marginBottom: 20 }}><div style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", color: "#999", marginBottom: 4 }}>{item.label}</div><div style={{ fontSize: 15, color: "#333" }}>{item.value}</div></div>)}</div>
           <div style={{ display: "flex", gap: 12, marginTop: 24 }}>{socials.map(s => <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40, borderRadius: 8, border: "1px solid #E8E6E1" }}>{s.icon}</a>)}</div>
         </div>
         <div style={{ flex: 1, minWidth: 320 }}>
