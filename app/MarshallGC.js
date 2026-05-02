@@ -235,19 +235,7 @@ export default function MarshallGC() {
     </nav>
   );
 
-  const NewsletterBlock = (
-    <div style={{ maxWidth: 520, margin: "0 auto", padding: "56px 48px 0", textAlign: "center" }}>
-      <p style={{ fontSize: 11, fontWeight: 600, color: "#999", letterSpacing: "0.12em", textTransform: "uppercase" }}>Stay informed</p>
-      <p style={{ fontSize: 18, fontWeight: 600, marginTop: 10, letterSpacing: "-0.02em" }}>Legal insights for scaling brands</p>
-      <p style={{ fontSize: 14, color: "#888", marginTop: 6 }}>Practical advice on IP, licensing, international growth, and more.</p>
-      {subbed ? <p style={{ fontSize: 14, color: "#16a34a", marginTop: 20 }}>You are subscribed.</p> : (
-        <div style={{ display: "flex", gap: 10, marginTop: 20, maxWidth: 420, margin: "20px auto 0" }}>
-          <input ref={newsletterRef} type="email" defaultValue="" placeholder="you@yourbrand.com" style={{ flex: 1, padding: "12px 16px", borderRadius: 8, border: "1px solid #E8E6E1", fontSize: 14, outline: "none", fontFamily: "inherit" }} />
-          <button onClick={handleSubscribe} style={{ ...st.btn, padding: "12px 24px" }}>Subscribe</button>
-        </div>
-      )}
-    </div>
-  );
+  const NewsletterBlock = null;
 
   const Footer = () => (
     <footer style={{ borderTop: "1px solid #E8E6E1", marginTop: 80 }}>
