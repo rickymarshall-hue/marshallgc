@@ -157,18 +157,18 @@ export default function MarshallGC() {
   const [formSending, setFormSending] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-   const [currency, setCurrency] = useState(() => {
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      return tz === "Europe/London" ? "GBP" : "USD";
-    } catch(e) {
-      return "USD";
-    }
-  });
+  const [currency, setCurrency] = useState("USD");
   const newsletterRef = useRef(null);
 
   useEffect(() => { setIsMobile(window.innerWidth < 768); }, []);
-  
+
+  useEffect(() => {
+    fetch("https://api.country.is")
+      .then(r => r.json())
+      .then(d => { if (d && d.country === "GB") setCurrency("GBP"); })
+      .catch(() => {});
+  }, []);
+
   const go = (p, extras) => {
     if (p === page && !extras) return;
     setTransitioning(true);
@@ -410,9 +410,12 @@ export default function MarshallGC() {
           {retainerTiers.map(t => (
             <FadeIn key={t.name} style={{ flex: "1 1 300px", maxWidth: 330 }}>
               <div style={{ background: "#fff", border: t.highlighted ? "2px solid #1a1a1a" : "1px solid #E8E6E1", borderRadius: 16, padding: 36, display: "flex", flexDirection: "column", height: "100%", position: "relative", boxShadow: t.highlighted ? "0 8px 30px rgba(0,0,0,0.07)" : "none" }}>
-                {t.highlighted && <div style={{ position: "absolute", top: -13, left: "50%", transform: "traƒnslateX(-50%)", background: "#1a1a1a", color: "#fff", fontSize: 11, fontWeight: 500, padding: "4px 16px", borderRadius: 20 }}>Most Popular</div>}
+                {t.highlighted && <div style={{ position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)", background: "#1a1a1a", color: "#fff", fontSize: 11, fontWeight: 500, padding: "4px 16px", borderRadius: 20 }}>Most Popular</div>}
                 <div style={{ fontSize: 12, fontWeight: 600, color: "#999", letterSpacing: "0.08em", textTransform: "uppercase" }}>{t.name}</div>
-                <div style={{ marginTop: 16, display: "flex", alignItems: "baseline", gap: 2 }}><span style={{ fontSize: 34, fontWeight: 600, letterSpacing: "-0.03em" }}>{currency === "GBP" ? t.priceGBP : t.price}</span>
+                <div style={{ marginTop: 16, display: "flex", alignItems: "baseline", gap: 2 }}>
+                  <span style={{ fontSize: 34, fontWeight: 600, letterSpacing: "-0.03em" }}>{currency === "GBP" ? t.priceGBP : t.price}</span>
+                  <span style={{ fontSize: 14, color: "#999" }}>{t.unit}</span>
+                </div>
                 <p style={{ fontSize: 13, color: "#888", lineHeight: 1.6, marginTop: 12, minHeight: 44 }}>{t.desc}</p>
                 <div style={{ marginTop: 20, marginBottom: 28, flex: 1 }}>{t.features.map((f, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10 }}><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginTop: 3, flexShrink: 0 }}><path d="M3 7.5L5.5 10L11 4" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg><span style={{ fontSize: 13, color: "#555", lineHeight: 1.5 }}>{f}</span></div>)}</div>
                 <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={t.highlighted ? { ...st.btn, width: "100%", padding: "13px 0", borderRadius: 8, textAlign: "center", boxSizing: "border-box" } : { ...st.btnOut, width: "100%", padding: "12px 0", borderRadius: 8, textAlign: "center", boxSizing: "border-box", textDecoration: "none" }}>{t.cta}</a>
@@ -424,7 +427,7 @@ export default function MarshallGC() {
       <div style={st.divider} />
       <div style={st.section}>
         <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Strategic Projects</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 16 }}>Fixed scope, fixed fee</h2><p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.6 }}>Project fees are typically split into an upfront payment and a completion payment, agreed before work begins.</p></FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(230px, 1fr))", gap: 20 }}>{projectExamples.map((p, i) => <FadeIn key={i}><CH style={{ height: "100%" }}><div style={{ fontSize: 13, fontWeight: 600 }}>{p.name}</div><div style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", marginTop: 8 }}>{currency === "GBP" ? p.priceGBP : p.price}</div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(230px, 1fr))", gap: 20 }}>{projectExamples.map((p, i) => <FadeIn key={i}><CH style={{ height: "100%" }}><div style={{ fontSize: 13, fontWeight: 600 }}>{p.name}</div><div style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", marginTop: 8 }}>{currency === "GBP" ? p.priceGBP : p.price}</div><p style={{ fontSize: 13, color: "#888", lineHeight: 1.6, marginTop: 10, marginBottom: 0 }}>{p.desc}</p></CH></FadeIn>)}</div>
       </div>
       <div style={st.divider} />
       <div style={{ maxWidth: 660, margin: "0 auto", padding: isMobile ? "56px 24px" : "72px 48px" }}>
