@@ -80,10 +80,10 @@ const retainerTiers = [
 ];
 
 const projectExamples = [
-  { name: "International Expansion", price: "From $8,000", desc: "Legal structuring for entering new markets." },
-  { name: "Licensing Program", price: "From $6,000", desc: "End-to-end licensing program development." },
-  { name: "Distribution Agreement", price: "From $3,500", desc: "Drafting and negotiating distribution partnerships." },
-  { name: "Corporate Structuring", price: "From $5,000", desc: "Investor-ready corporate structure and governance." },
+  { name: "International Expansion", price: "From $8,000", priceGBP: "From £6,000", desc: "Legal structuring for entering new markets." },
+  { name: "Licensing Program", price: "From $6,000", priceGBP: "From £4,500", desc: "End-to-end licensing program development." },
+  { name: "Distribution Agreement", price: "From $3,500", priceGBP: "From £2,500", desc: "Drafting and negotiating distribution partnerships." },
+  { name: "Corporate Structuring", price: "From $5,000", priceGBP: "From £3,750", desc: "Investor-ready corporate structure and governance." },
 ];
 
 const pricingFaqs = [
@@ -409,7 +409,7 @@ export default function MarshallGC() {
           {retainerTiers.map(t => (
             <FadeIn key={t.name} style={{ flex: "1 1 300px", maxWidth: 330 }}>
               <div style={{ background: "#fff", border: t.highlighted ? "2px solid #1a1a1a" : "1px solid #E8E6E1", borderRadius: 16, padding: 36, display: "flex", flexDirection: "column", height: "100%", position: "relative", boxShadow: t.highlighted ? "0 8px 30px rgba(0,0,0,0.07)" : "none" }}>
-                {t.highlighted && <div style={{ position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)", background: "#1a1a1a", color: "#fff", fontSize: 11, fontWeight: 500, padding: "4px 16px", borderRadius: 20 }}>Most Popular</div>}
+                {t.highlighted && <div style={{ position: "absolute", top: -13, left: "50%", transform: "traƒnslateX(-50%)", background: "#1a1a1a", color: "#fff", fontSize: 11, fontWeight: 500, padding: "4px 16px", borderRadius: 20 }}>Most Popular</div>}
                 <div style={{ fontSize: 12, fontWeight: 600, color: "#999", letterSpacing: "0.08em", textTransform: "uppercase" }}>{t.name}</div>
                 <div style={{ marginTop: 16, display: "flex", alignItems: "baseline", gap: 2 }}><span style={{ fontSize: 34, fontWeight: 600, letterSpacing: "-0.03em" }}>{currency === "GBP" ? t.priceGBP : t.price}</span>
                 <p style={{ fontSize: 13, color: "#888", lineHeight: 1.6, marginTop: 12, minHeight: 44 }}>{t.desc}</p>
@@ -423,7 +423,7 @@ export default function MarshallGC() {
       <div style={st.divider} />
       <div style={st.section}>
         <FadeIn><p style={{ ...st.label, textAlign: "center" }}>Strategic Projects</p><h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", textAlign: "center", marginTop: 12, marginBottom: 16 }}>Fixed scope, fixed fee</h2><p style={{ fontSize: 14, color: "#888", textAlign: "center", maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.6 }}>Project fees are typically split into an upfront payment and a completion payment, agreed before work begins.</p></FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(230px, 1fr))", gap: 20 }}>{projectExamples.map((p, i) => <FadeIn key={i}><CH style={{ height: "100%" }}><div style={{ fontSize: 13, fontWeight: 600 }}>{p.name}</div><div style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", marginTop: 8 }}>{p.price}</div><p style={{ fontSize: 13, color: "#888", lineHeight: 1.6, marginTop: 10, marginBottom: 0 }}>{p.desc}</p></CH></FadeIn>)}</div>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(230px, 1fr))", gap: 20 }}>{projectExamples.map((p, i) => <FadeIn key={i}><CH style={{ height: "100%" }}><div style={{ fontSize: 13, fontWeight: 600 }}>{p.name}</div><div style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", marginTop: 8 }}>{currency === "GBP" ? p.priceGBP : p.price}</div>
       </div>
       <div style={st.divider} />
       <div style={{ maxWidth: 660, margin: "0 auto", padding: isMobile ? "56px 24px" : "72px 48px" }}>
