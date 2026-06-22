@@ -157,16 +157,17 @@ export default function MarshallGC() {
   const [formSending, setFormSending] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [currency, setCurrency] = useState("USD");
+   const [currency, setCurrency] = useState(() => {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      return tz === "Europe/London" ? "GBP" : "USD";
+    } catch(e) {
+      return "USD";
+    }
+  });
   const newsletterRef = useRef(null);
 
   useEffect(() => { setIsMobile(window.innerWidth < 768); }, []);
-  useEffect(() => {
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      if (tz === "Europe/London") setCurrency("GBP");
-    } catch(e) {}
-  }, []);
   
   const go = (p, extras) => {
     if (p === page && !extras) return;
