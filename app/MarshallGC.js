@@ -162,9 +162,12 @@ export default function MarshallGC() {
 
   useEffect(() => { setIsMobile(window.innerWidth < 768); }, []);
   useEffect(() => {
-    fetch("https://ipapi.co/json/")
-      .then(r => r.json())
-      .then(d => { if (d && d.country_code === "GB") setCurrency("GBP"); })
+    fetch("https://cloudflare.com/cdn-cgi/trace")
+      .then(r => r.text())
+      .then(t => {
+        const match = t.match(/loc=([A-Z]{2})/);
+        if (match && match[1] === "GB") setCurrency("GBP");
+      })
       .catch(() => {});
   }, []);
   
