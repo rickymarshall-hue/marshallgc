@@ -162,13 +162,10 @@ export default function MarshallGC() {
 
   useEffect(() => { setIsMobile(window.innerWidth < 768); }, []);
   useEffect(() => {
-    fetch("https://cloudflare.com/cdn-cgi/trace")
-      .then(r => r.text())
-      .then(t => {
-        const match = t.match(/loc=([A-Z]{2})/);
-        if (match && match[1] === "GB") setCurrency("GBP");
-      })
-      .catch(() => {});
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (tz === "Europe/London") setCurrency("GBP");
+    } catch(e) {}
   }, []);
   
   const go = (p, extras) => {
